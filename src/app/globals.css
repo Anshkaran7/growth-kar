@@ -91,10 +91,187 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    overflow: -moz-scrollbars-none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+body,
+div {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* For Chrome, Safari, Opera, Brave, and Edge */
+body::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  display: none; /* WebKit-based browsers */
+}
+
+/* Title animation */
+.animate-title {
+  opacity: 1 !important;
+  transform: translateX(0px) !important; /* Fixed by adding units */
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Smooth easing */
+}
+
+/* Description animation */
+.animate-description {
+  opacity: 1 !important;
+  transform: translateX(0px) !important; /* Fixed by adding units */
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Smooth easing */
+}
+
+/* Hide scrollbar */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+
+/* Drop-in animation for content */
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px); /* Start from 10px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Move to the original position */
+  }
+}
+
+.animate-drop-in {
+  animation: dropIn 0.6s ease-in-out forwards; /* Smooth drop-in animation */
+}
+
+/* Slow spin animation for the plus icon */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg); /* Half spin for visual appeal */
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 0.5s ease-in-out;
+}
+
+
+/* Drop-in animation for content */
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px); /* Start from 10px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Move to the original position */
+  }
+}
+
+.animate-drop-in {
+  animation: dropIn 0.4s cubic-bezier(0.25, 0.8, 0.5, 1) forwards; /* Smooth drop-in animation with custom easing */
+}
+
+/* Bounce-in animation for content */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px); /* Start from below */
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px); /* Slight bounce up */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Settle in place */
+  }
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.6s ease-in-out forwards; /* Bounce-in animation with ease-in-out */
+}
+
+/* Spin animation for the plus icon */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg); /* Half spin for visual appeal */
+  }
+}
+
+.animate-spin {
+  animation: spin 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Custom easing for spin */
+}
+
+/* Glow effect on hover */
+.glow-on-hover {
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); /* Subtle glow */
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Glow with easing */
+}
+
+/* CSS for slide-in-from-bottom animation */
+.slide-in-from-bottom {
+  transform: translateY(20px); /* Start position */
+  opacity: 0; /* Initial state: invisible */
+  animation: slideInFromBottom 0.5s ease forwards; /* Animation with 0.5s duration */
+}
+
+/* Define the keyframes for slide-in-from-bottom animation */
+@keyframes slideInFromBottom {
+  0% {
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Start below */
+  }
+  100% {
+    opacity: 1; /* End visible */
+    transform: translateY(0); /* End in original position */
+  }
+}
+
+/* CSS for slide-up-fade-out animation */
+.slide-up-fade-out {
+  animation: slideUpFadeOut 0.5s ease forwards; /* Animation with 0.5s duration */
+}
+
+/* Define the keyframes for slide-up-fade-out animation */
+@keyframes slideUpFadeOut {
+  0% {
+    opacity: 1; /* Start visible */
+    transform: translateY(0); /* Start at original position */
+  }
+  100% {
+    opacity: 0; /* End invisible */
+    transform: translateY(-20px); /* End above */
+  }
+}
+
+.slick-slide {
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.slick-center .slick-slide {
+  opacity: 1; /* Full opacity for the center slide */
+  transform: scale(1.1); /* Slightly enlarge the center slide */
+}
+
+.slick-slide:not(.slick-center) {
+  opacity: 0.4; /* Reduced opacity for inactive slides */
 }
