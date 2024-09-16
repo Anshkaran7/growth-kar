@@ -5,11 +5,7 @@ interface Section2Props {
 }
 
 function Section2({ style }: Section2Props) {
-  const [activeBenefit, setActiveBenefit] = useState<number | null>(null);
-  const [showContent, setShowContent] = useState(false);
-  const [showServices, setShowServices] = useState(false);
-  const [showBenefits, setShowBenefits] = useState(false);
-  const [showStar, setShowStar] = useState(false);
+  // Removed unused state variables and toggleBenefit function
   const [lineInView, setLineInView] = useState(false); // State to handle when line is in view
   const [titleInView, setTitleInView] = useState(false); // State to manage title visibility
   const [descriptionInView, setDescriptionInView] = useState(false); // State to manage description visibility
@@ -18,10 +14,6 @@ function Section2({ style }: Section2Props) {
   const titleRef = useRef<HTMLHeadingElement>(null); // Ref for "At GrowthKAR" title
   const descriptionRef = useRef<HTMLDivElement>(null); // Ref for description
 
-  const toggleBenefit = (index: number) => {
-    setActiveBenefit(activeBenefit === index ? null : index);
-  };
-
   // Scroll effect handler
   useEffect(() => {
     const handleScroll = () => {
@@ -29,14 +21,13 @@ function Section2({ style }: Section2Props) {
 
       // Show content when scrolling past a certain point
       if (scrollPosition > window.innerHeight * 0.1) {
-        setShowContent(true);
+        // Removed showContent-related code
       }
       if (scrollPosition > window.innerHeight * 1.2) {
-        setShowServices(true);
+        // Removed showServices-related code
       }
       if (scrollPosition > window.innerHeight * 2) {
-        setShowStar(true);
-        setShowBenefits(true);
+        // Removed showStar and showBenefits-related code
       }
     };
 
@@ -100,7 +91,6 @@ function Section2({ style }: Section2Props) {
             >
               At GrowthKAR
             </h1>
-           
           </div>
 
           {/* Animated Line */}

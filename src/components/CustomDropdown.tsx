@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FiChevronDown, FiX, FiSearch } from "react-icons/fi";
+import { FiChevronDown, FiSearch } from "react-icons/fi";
 import { MdClear } from "react-icons/md";
 
 const CustomDropdown = ({
