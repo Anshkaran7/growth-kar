@@ -202,14 +202,13 @@ const Section8 = () => {
         selectedOption={formData.experience}
         onSelect={(option) => handleDropdownChange("experience", option)}
       />
-      
-       <FileInput
+      <FileInput
         name="portfolio"
         title="Upload Portfolio"
-        onChange={(e) =>
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleInputChange({
             target: { name: "portfolio", value: e.target.value },
-          } as any)
+          } as React.ChangeEvent<HTMLInputElement>)
         }
       />
       <CustomDropdown
@@ -224,7 +223,7 @@ const Section8 = () => {
   return (
     <section className="min-h-screen snap-start flex flex-col items-center justify-center pt-28 p-10 bg-black text-white">
       <h2 className="text-center text-4xl font-bold">Register Here</h2>
-      <div className="w-full max-w-5xl  p-8 rounded-lg">
+      <div className="w-full max-w-5xl p-8 rounded-lg">
         {/* Tab Navigation */}
         <div className="flex justify-center mb-6">
           {["startup", "freelancer"].map((tab) => (
