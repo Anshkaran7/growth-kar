@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 interface Testimonial {
   quote: string;
@@ -82,7 +84,7 @@ const Section7 = ({ style }: Section7Props) => {
   };
 
   return (
-    <section className={`${style} relative flex flex-col items-center justify-center min-h-screen bg-black text-white`}>
+    <section className={`${style} relative snap-start flex flex-col items-center justify-center min-h-screen bg-black text-white`}>
       <h2 className="text-center text-4xl font-semibold mb-10">Testimonials</h2>
       <Slider {...settings} className="w-full mx-auto px-4">
         {testimonials.map((testimonial, index) => (
@@ -92,8 +94,8 @@ const Section7 = ({ style }: Section7Props) => {
               activeIndex === index ? "opacity-100 scale-105 z-20" : "opacity-60 scale-95"
             }`}
             style={{
-              width: "60%", // Fixed width to ensure consistency
-              maxWidth: "500px", // Max width to prevent overly large cards
+              width: "60%",
+              maxWidth: "500px",
               transition: "all 0.5s ease-in-out",
             }}
           >
