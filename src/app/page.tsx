@@ -1,101 +1,120 @@
+"use client";
+
+import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
+import Section1 from "@/components/Section1";
+import Section2 from "@/components/Section2";
+import Section3 from "@/components/Section3";
+import Section4 from "@/components/Section4";
+import Section5 from "@/components/Section5";
+import Section6 from "@/components/Section6";
+import Section7 from "@/components/Section7";
+import Section8 from "@/components/Section8";
+import Section9 from "@/components/Section9";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const controls = useAnimation(); // Framer Motion controls for animations
+  const contentRef = useRef<HTMLDivElement>(null); // Ref for the content section
+  const [daysLeft, setDaysLeft] = useState(15); // State to store the number of days left
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  // Calculate the remaining days until the product launch
+  useEffect(() => {
+    const calculateDaysLeft = () => {
+      const launchDate = new Date("2024-09-25"); // Set your launch date here
+      const currentDate = new Date();
+      const timeDifference = launchDate.getTime() - currentDate.getTime();
+      const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+      setDaysLeft(daysRemaining > 0 ? daysRemaining : 0); // Set days left, but ensure it's not negative
+    };
+
+    calculateDaysLeft(); // Calculate on component mount
+    const intervalId = setInterval(calculateDaysLeft, 24 * 60 * 60 * 1000); // Recalculate every 24 hours
+    return () => clearInterval(intervalId); // Clean up the interval on component unmount
+  }, []);
+
+  // Scroll animations for SVG and content
+  useEffect(() => {
+    const handleScroll = () => {
+      const yOffset = window.pageYOffset;
+
+      // Animate the circle as soon as there is any scroll
+      controls.start({
+        scaleX: Math.min(3, 1 + yOffset / 200), // Increase width up to 3 times faster
+        scaleY: Math.max(0.2, 1 - yOffset / 800), // Decrease height faster down to 0.2
+        y: -Math.min(window.innerHeight + 200, yOffset * 1.5), // Move faster and translate up beyond the screen
+        transition: { duration: 0.6, ease: "easeOut" }, // Faster transition
+      });
+
+      // Apply fade and translate effect to the main content
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateY(-${yOffset * 0.05}px)`;
+        contentRef.current.style.opacity = `${Math.max(0, 1 - yOffset / 300)}`; // Smooth fade out
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [controls]);
+
+  return (
+    <div className="relative container mx-auto  overflow-hidden bg-black text-white h-screen scroll-smooth overflow-y-scroll snap-y snap-mandatory">
+      <Head>
+        <title>GrowthKAR</title>
+      </Head>
+
+      {/* Sticky Navbar */}
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div className="flex justify-between items-center p-4 sm:p-8 bg-black backdrop-blur-sm transition-all duration-300">
+          <Image
+            src="/navbar.png"
+            alt="GrowthKAR"
+            width={40}
+            height={40}
+            className="w-8 h-8 sm:w-10 sm:h-10"
+          />
+          <div className="flex items-center gap-x-2">
             <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/growthkar_logo.png"
+              alt="GrowthKAR"
+              width={28}
+              height={28}
+              className="w-5 h-5 sm:w-7 sm:h-7"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <span className="text-white font-semibold text-sm sm:text-base">
+              GrowthKAR
+            </span>
+          </div>
+          <button className="px-4 py-2 sm:px-6 sm:py-2 border rounded-full border-gray-600 hover:bg-gray-800 transition duration-300">
+            Join Us
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </header>
+
+      {/* Floating Banner */}
+      <motion.div
+        className="fixed bottom-8 right-8 z-50 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-lg flex items-center justify-center cursor-pointer"
+        initial={{ scale: 0.9, opacity: 0.8 }}
+        animate={{ scale: [1, 1.1, 1], opacity: 1 }}
+        transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+        whileHover={{ scale: 1.1 }}
+      >
+        <span className="text-sm sm:text-base font-bold">🚀 Product Launch in {daysLeft} Days!</span>
+      </motion.div>
+
+      {/* Sections */}
+      <Section1 style="h-screen snap-start" />
+      <Section2 style="h-screen snap-start" />
+      <Section3 style="h-screen snap-start" />
+      <Section4 style="h-screen snap-start" />
+      <Section5 style="h-screen snap-start" />
+      <Section9/>
+      <Section6 style="h-screen snap-start" />
+      <Section7 style="h-screen snap-start" />
+      <Section8  />
     </div>
   );
 }
