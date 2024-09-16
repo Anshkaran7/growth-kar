@@ -1,6 +1,5 @@
 "use client";
 
-import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import CustomSvg from "@/components/CustomSvg"; // Import the CustomSvg component
