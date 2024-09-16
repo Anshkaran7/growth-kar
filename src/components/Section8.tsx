@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import CustomDropdown from "./CustomDropdown"; // Assumes a dropdown component is created
-import "tailwindcss/tailwind.css"; // Assuming Tailwind is used for styling
+import { motion } from "framer-motion"; // Import motion from framer-motion
+import CustomDropdown from "./CustomDropdown";
+import "tailwindcss/tailwind.css";
 import FileInput from "./FileInput";
 
 const Section8 = () => {
-  const [activeTab, setActiveTab] = useState("startup"); // Manage active tab state
+  const [activeTab, setActiveTab] = useState("startup");
   const [formData, setFormData] = useState({
-    // Common fields
     name: "",
     contactName: "",
     email: "",
@@ -14,13 +14,11 @@ const Section8 = () => {
     address: "",
     website: "",
     description: "",
-    // Freelancer-specific fields
     role: "",
     services: "",
     experience: "",
     portfolio: "",
     pricingModel: "",
-    // Startup-specific fields
     founderName: "",
     founderRole: "",
     founderEmail: "",
@@ -53,7 +51,13 @@ const Section8 = () => {
   };
 
   const startupFields = (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <motion.div
+      className="grid grid-cols-1 gap-6 md:grid-cols-2"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Startup-specific Fields */}
       <input
         type="text"
@@ -61,7 +65,7 @@ const Section8 = () => {
         placeholder="Company/Startup Name"
         value={formData.name}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="text"
@@ -69,7 +73,7 @@ const Section8 = () => {
         placeholder="Founder Name"
         value={formData.founderName}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="email"
@@ -77,7 +81,7 @@ const Section8 = () => {
         placeholder="Founder Email"
         value={formData.founderEmail}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="text"
@@ -85,7 +89,7 @@ const Section8 = () => {
         placeholder="Founder Phone Number"
         value={formData.founderPhone}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <CustomDropdown
         title="Business Entity Type"
@@ -148,11 +152,17 @@ const Section8 = () => {
         onChange={handleInputChange}
         className="input-field col-span-2"
       ></textarea>
-    </div>
+    </motion.div>
   );
 
   const freelancerFields = (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <motion.div
+      className="grid grid-cols-1 gap-6 md:grid-cols-2"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Freelancer-specific Fields */}
       <input
         type="text"
@@ -160,7 +170,7 @@ const Section8 = () => {
         placeholder="Name / Company Name"
         value={formData.name}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="email"
@@ -168,7 +178,7 @@ const Section8 = () => {
         placeholder="Email Address"
         value={formData.email}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="text"
@@ -176,7 +186,7 @@ const Section8 = () => {
         placeholder="Phone Number"
         value={formData.phone}
         onChange={handleInputChange}
-        className="input-field"
+        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <CustomDropdown
         title="Choose Your Role"
@@ -217,36 +227,57 @@ const Section8 = () => {
         selectedOption={formData.pricingModel}
         onSelect={(option) => handleDropdownChange("pricingModel", option)}
       />
-    </div>
+    </motion.div>
   );
 
   return (
-    <section className="min-h-screen snap-start flex flex-col items-center justify-center pt-28 p-10 bg-black text-white">
-      <h2 className="text-center text-4xl font-bold">Register Here</h2>
+    <section className="min-h-screen snap-start flex flex-col items-center justify-center pt-28 md:p-10 bg-black text-white transition-all duration-500 ease-in-out">
+      <h2 className="text-center text-2xl md:text-4xl font-bold md:mb-6">
+        Register Here
+      </h2>
       <div className="w-full max-w-5xl p-8 rounded-lg">
         {/* Tab Navigation */}
-        <div className="flex justify-center mb-6">
+        <motion.div
+          className="flex justify-center mb-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
           {["startup", "freelancer"].map((tab) => (
             <button
               key={tab}
-              className={`px-4 py-2 mx-2 ${
+              className={`px-4 py-2 mx-2 transition-colors duration-300 ease-in-out ${
                 activeTab === tab
                   ? "border-b-4 border-purple-500 text-purple-500"
-                  : "text-gray-400"
+                  : "text-gray-400 hover:text-white"
               }`}
               onClick={() => setActiveTab(tab)}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <motion.form
+          onSubmit={handleSubmit}
+          className="transition-opacity duration-500 ease-in-out"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
           {activeTab === "startup" ? startupFields : freelancerFields}
 
           {/* Terms and Conditions */}
-          <div className="flex items-center mt-6">
+          <motion.div
+            className="flex items-center mt-6"
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5 }}
+          >
             <input
               type="checkbox"
               id="terms"
@@ -262,10 +293,16 @@ const Section8 = () => {
             <label htmlFor="terms" className="ml-3 text-sm text-gray-400">
               I Agree To The Terms And Conditions
             </label>
-          </div>
+          </motion.div>
 
           {/* Submit Button */}
-          <div className="flex justify-end">
+          <motion.div
+            className="flex justify-end"
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5 }}
+          >
             <button
               type="submit"
               className="text-purple-500 bg-white px-10 py-3 rounded-lg hover:bg-white/90 cursor-pointer transition-all duration-300 focus:outline-none"
@@ -273,8 +310,8 @@ const Section8 = () => {
             >
               Submit
             </button>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </div>
     </section>
   );

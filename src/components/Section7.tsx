@@ -110,7 +110,7 @@ const Section7 = ({ style }: Section7Props) => {
               />
             </div>
             {/* Testimonial Quote */}
-            <p className="text-lg md:text-xl text-[#B8B8B8] mb-6 text-justify">{testimonial.quote}</p>
+            <p className="text-sm md:text-lg text-[#B8B8B8] mb-6 text-justify">{testimonial.quote}</p>
             {/* Author */}
             <p className="font-semibold text-lg text-white">{testimonial.author}</p>
             {/* Company Logo */}

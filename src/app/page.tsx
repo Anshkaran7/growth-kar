@@ -17,7 +17,7 @@ import Section9 from "@/components/Section9";
 export default function Home() {
   const controls = useAnimation(); // Framer Motion controls for animations
   const contentRef = useRef<HTMLDivElement>(null); // Ref for the content section
-  const [daysLeft, setDaysLeft] = useState(15); // State to store the number of days left
+  const [daysLeft, setDaysLeft] = useState(15); 
 
   // Calculate the remaining days until the product launch
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function Home() {
             alt="GrowthKAR"
             width={40}
             height={40}
-            className="w-8 h-8 sm:w-10 sm:h-10"
+            className={`w-8 h-8 sm:w-10 sm:h-10 animate-spin`}
           />
           <div className="flex items-center gap-x-2">
             <Image
@@ -102,7 +102,7 @@ export default function Home() {
         transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
         whileHover={{ scale: 1.1 }}
       >
-        <span className="text-sm sm:text-base font-bold">🚀 Product Launch in {daysLeft} Days!</span>
+        <span className="text-xs md:text-base font-bold">🚀 Product Launch in {daysLeft} Days!</span>
       </motion.div>
 
       {/* Sections */}

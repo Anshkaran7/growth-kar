@@ -59,32 +59,7 @@ function Section1({ style }: Section1Props) {
   return (
     <div className={`${style} min-h-screen`}>
       {/* Sticky Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="flex justify-between items-center p-4 sm:p-8 bg-black backdrop-blur-sm transition-all duration-300">
-          <Image
-            src="/navbar.png"
-            alt="GrowthKAR"
-            width={40}
-            height={40}
-            className="w-8 h-8 sm:w-10 sm:h-10"
-          />
-          <div className="flex items-center gap-x-2">
-            <Image
-              src="/growthkar_logo.png"
-              alt="GrowthKAR"
-              width={28}
-              height={28}
-              className="w-5 h-5 sm:w-7 sm:h-7"
-            />
-            <span className="text-white font-semibold text-sm sm:text-base">
-              GrowthKAR
-            </span>
-          </div>
-          <button className="px-4 py-2 sm:px-6 sm:py-2 border rounded-full border-gray-600 hover:bg-gray-800 transition duration-300">
-            Join Us
-          </button>
-        </div>
-      </header>
+      
 
       {/* Floating Banner */}
       <motion.div
