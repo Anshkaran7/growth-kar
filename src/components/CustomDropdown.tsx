@@ -13,13 +13,12 @@ const CustomDropdown = ({
   options: string[];
   selectedOption: string | string[];
   onSelect: (option: string | string[]) => void;
-  multiple?: boolean; // Allow multiple selection
+  multiple?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Handle selecting single or multiple options
   const handleOptionSelect = (option: string) => {
     if (multiple) {
       const currentSelections = selectedOption as string[];
@@ -29,7 +28,7 @@ const CustomDropdown = ({
       onSelect(newSelections);
     } else {
       onSelect(option);
-      setIsOpen(false); // Close after selecting in single mode
+      setIsOpen(false);
     }
   };
 
@@ -38,11 +37,10 @@ const CustomDropdown = ({
   );
 
   const clearSelection = () => {
-    onSelect(multiple ? [] : ""); // Clear selection based on mode
-    setSearchTerm(""); // Clear the search input
+    onSelect(multiple ? [] : "");
+    setSearchTerm("");
   };
 
-  // Close the dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -75,7 +73,7 @@ const CustomDropdown = ({
             <MdClear
               className="text-gray-400 hover:text-red-500 transition duration-200 cursor-pointer"
               onClick={(e) => {
-                e.stopPropagation(); // Prevent dropdown from opening when clearing
+                e.stopPropagation();
                 clearSelection();
               }}
             />
@@ -87,7 +85,7 @@ const CustomDropdown = ({
       </button>
       {isOpen && (
         <div
-          className={`absolute z-10 w-full bg-[#2a2a2a] text-white rounded-[15px] shadow-lg mt-1 max-h-60 overflow-y-auto transition-all duration-300 ease-in-out transform border border-gray-600`}
+          className={`absolute z-10 w-full bg-[#2a2a2a] text-white rounded-[15px] shadow-lg mt-1 max-h-60 sm:max-h-40 overflow-y-auto transition-all duration-300 ease-in-out transform border border-gray-600`}
         >
           {/* Search Input */}
           <div className="sticky top-0 bg-[#2a2a2a] p-2 z-20 border-b border-gray-500">
@@ -109,7 +107,7 @@ const CustomDropdown = ({
             </div>
           </div>
           {/* Options List */}
-          <ul className="p-2 max-h-48 overflow-y-auto">
+          <ul className="p-2 max-h-48 sm:max-h-32 overflow-y-auto">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option, index) => (
                 <li
@@ -125,7 +123,7 @@ const CustomDropdown = ({
                 >
                   {multiple && (
                     <input
-                    title="Custom Dropdown"
+                    title="Select"
                       type="checkbox"
                       checked={(selectedOption as string[]).includes(option)}
                       onChange={() => handleOptionSelect(option)}

@@ -52,7 +52,7 @@ const Section8 = () => {
 
   const startupFields = (
     <motion.div
-      className="grid grid-cols-1 gap-6 md:grid-cols-2"
+      className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -65,7 +65,7 @@ const Section8 = () => {
         placeholder="Company/Startup Name"
         value={formData.name}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="text"
@@ -73,7 +73,7 @@ const Section8 = () => {
         placeholder="Founder Name"
         value={formData.founderName}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="email"
@@ -81,7 +81,7 @@ const Section8 = () => {
         placeholder="Founder Email"
         value={formData.founderEmail}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="text"
@@ -89,7 +89,7 @@ const Section8 = () => {
         placeholder="Founder Phone Number"
         value={formData.founderPhone}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <CustomDropdown
         title="Business Entity Type"
@@ -150,14 +150,14 @@ const Section8 = () => {
         placeholder="About Your Company/Startup"
         value={formData.description}
         onChange={handleInputChange}
-        className="input-field col-span-2"
+        className="input-field w-full col-span-1 md:col-span-2 p-3 md:p-4 text-sm md:text-base"
       ></textarea>
     </motion.div>
   );
 
   const freelancerFields = (
     <motion.div
-      className="grid grid-cols-1 gap-6 md:grid-cols-2"
+      className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -170,7 +170,7 @@ const Section8 = () => {
         placeholder="Name / Company Name"
         value={formData.name}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="email"
@@ -178,7 +178,7 @@ const Section8 = () => {
         placeholder="Email Address"
         value={formData.email}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <input
         type="text"
@@ -186,7 +186,7 @@ const Section8 = () => {
         placeholder="Phone Number"
         value={formData.phone}
         onChange={handleInputChange}
-        className="input-field transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
       />
       <CustomDropdown
         title="Choose Your Role"
@@ -231,11 +231,11 @@ const Section8 = () => {
   );
 
   return (
-    <section className="min-h-screen snap-start flex flex-col items-center justify-center pt-28 md:p-10 bg-black text-white transition-all duration-500 ease-in-out">
-      <h2 className="text-center text-2xl md:text-4xl font-bold md:mb-6">
+    <section className="min-h-screen flex flex-col pb-40 snap-start items-center justify-center pt-24 md:pt-28 px-4 md:px-10 bg-black text-white">
+      <h2 className="text-center text-xl md:text-3xl font-bold mb-4 md:mb-6">
         Register Here
       </h2>
-      <div className="w-full max-w-5xl p-8 rounded-lg">
+      <div className="w-full max-w-3xl md:max-w-5xl b p-6 md:p-8 rounded-lg">
         {/* Tab Navigation */}
         <motion.div
           className="flex justify-center mb-6"
@@ -247,7 +247,7 @@ const Section8 = () => {
           {["startup", "freelancer"].map((tab) => (
             <button
               key={tab}
-              className={`px-4 py-2 mx-2 transition-colors duration-300 ease-in-out ${
+              className={`px-3 md:px-4 py-2 mx-1 md:mx-2 text-sm md:text-base transition-colors duration-300 ease-in-out ${
                 activeTab === tab
                   ? "border-b-4 border-purple-500 text-purple-500"
                   : "text-gray-400 hover:text-white"
@@ -272,7 +272,7 @@ const Section8 = () => {
 
           {/* Terms and Conditions */}
           <motion.div
-            className="flex items-center mt-6"
+            className="flex items-center mt-4 md:mt-6"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.1 }}
@@ -290,14 +290,14 @@ const Section8 = () => {
               }
               className="form-checkbox h-5 w-5 text-purple-500"
             />
-            <label htmlFor="terms" className="ml-3 text-sm text-gray-400">
+            <label htmlFor="terms" className="ml-3 text-xs md:text-base text-gray-400">
               I Agree To The Terms And Conditions
             </label>
           </motion.div>
 
           {/* Submit Button */}
           <motion.div
-            className="flex justify-end"
+            className="flex justify-end mt-4 md:mt-6"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.1 }}
@@ -305,7 +305,7 @@ const Section8 = () => {
           >
             <button
               type="submit"
-              className="text-purple-500 bg-white px-10 py-3 rounded-lg hover:bg-white/90 cursor-pointer transition-all duration-300 focus:outline-none"
+              className="text-purple-500 bg-white px-8 md:px-10 py-2 md:py-3 rounded-lg hover:bg-white/90 cursor-pointer transition-all duration-300 focus:outline-none"
               disabled={!formData.agreeToTerms}
             >
               Submit

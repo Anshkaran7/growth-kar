@@ -17,7 +17,8 @@ import Section9 from "@/components/Section9";
 export default function Home() {
   const controls = useAnimation(); // Framer Motion controls for animations
   const contentRef = useRef<HTMLDivElement>(null); // Ref for the content section
-  const [daysLeft, setDaysLeft] = useState(15); 
+  const [daysLeft, setDaysLeft] = useState(15);
+  const logoContainerRef = useRef<HTMLDivElement>(null); // Ref for the logo container
 
   // Calculate the remaining days until the product launch
   useEffect(() => {
@@ -52,6 +53,12 @@ export default function Home() {
         contentRef.current.style.transform = `translateY(-${yOffset * 0.05}px)`;
         contentRef.current.style.opacity = `${Math.max(0, 1 - yOffset / 300)}`; // Smooth fade out
       }
+
+      // Rotate the logo container based on scroll
+      if (logoContainerRef.current) {
+        const rotation = yOffset * 0.2; // Control the speed of rotation (adjust this value as needed)
+        logoContainerRef.current.style.transform = `rotate(${rotation}deg)`; // Rotate based on scroll
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -61,7 +68,7 @@ export default function Home() {
   }, [controls]);
 
   return (
-    <div className="relative container mx-auto  overflow-hidden bg-black text-white h-screen scroll-smooth overflow-y-scroll snap-y snap-mandatory">
+    <div className="relative container mx-auto overflow-hidden bg-black text-white h-screen scroll-smooth overflow-y-scroll snap-y snap-mandatory">
       <Head>
         <title>GrowthKAR</title>
       </Head>
@@ -69,13 +76,16 @@ export default function Home() {
       {/* Sticky Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50">
         <div className="flex justify-between items-center p-4 sm:p-8 bg-black backdrop-blur-sm transition-all duration-300">
-          <Image
-            src="/navbar.png"
-            alt="GrowthKAR"
-            width={40}
-            height={40}
-            className={`w-8 h-8 sm:w-10 sm:h-10 animate-spin`}
-          />
+          {/* Wrap the logo Image in a div to apply ref and transformations */}
+          <div ref={logoContainerRef} className="w-8 h-8 sm:w-10 sm:h-10">
+            <Image
+              src="/navbar.png"
+              alt="GrowthKAR"
+              width={40}
+              height={40}
+              className="w-8 h-8 sm:w-10 sm:h-10"
+            />
+          </div>
           <div className="flex items-center gap-x-2">
             <Image
               src="/growthkar_logo.png"
@@ -111,10 +121,10 @@ export default function Home() {
       <Section3 style="h-screen snap-start" />
       <Section4 style="h-screen snap-start" />
       <Section5 style="h-screen snap-start" />
-      <Section9/>
+      <Section9 />
       <Section6 style="h-screen snap-start" />
       <Section7 style="h-screen snap-start" />
-      <Section8  />
+      <Section8 />
     </div>
   );
 }
