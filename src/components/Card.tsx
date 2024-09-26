@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description, zigzagPositio
 
   return (
     <motion.div
-      className={`w-[90%] sm:w-[70%] md:w-[60%] lg:w-[500px] p-6 z-10 bg-[rgba(255,255,255,0.05)] backdrop-blur-md border border-[rgba(157,157,157,0.5)] rounded-2xl shadow-lg ${alignmentClass} my-8`} // Responsive width and dynamic alignment class
+      className={`w-[90%] sm:w-[70%] md:w-[60%] lg:w-[400px] py-20 p-6 z-10 bg-[rgba(255,255,255,0.05)] backdrop-blur-md border border-[rgba(157,157,157,0.5)] rounded-2xl shadow-lg ${alignmentClass} my-8`} // Responsive width and dynamic alignment class
       whileInView={{ opacity: 1, y: 0 }}
       initial={{ opacity: 0, y: 50 }}
       viewport={{ once: true }}

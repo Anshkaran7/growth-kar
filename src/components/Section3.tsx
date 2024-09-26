@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FiPlus } from "react-icons/fi";
 
 interface Section3Props {
   style: string;
@@ -59,17 +60,17 @@ function Section3({ style }: Section3Props) {
               {
                 title: "Startup Growth Solutions",
                 content:
-                  "Starting a new business can be challenging. At GrowthKAR, we provide expert guidance and resources to help startups navigate these challenges and establish a solid foundation for growth.",
+                  "We help startups navigate early challenges and establish a solid foundation for growth.",
               },
               {
-                title: "Mid-Level Company Growth",
+                title: "Established Business Expansion",
                 content:
-                  "For established companies looking to scale, we offer growth strategies that are designed to maximize potential and drive sustainable development.",
+                  "For established companies looking to scale, we offer strategies to maximize potential and drive sustainable development. ",
               },
               {
-                title: "Freelancer Growth Services",
+                title: "Expert Freelancer Matching",
                 content:
-                  "GrowthKAR connects businesses with freelancers across various fields dedicated to providing high-quality services that meet your specific needs.",
+                  "We connect businesses with top-tier freelancers to meet specific project needs and drive growth.",
               },
             ].map((service, index) => (
               <div
@@ -86,6 +87,9 @@ function Section3({ style }: Section3Props) {
                     {service.content}
                   </p>
                 </div>
+                <button className=" absolute bottom-4 right-20 px-4 py-2 bg-[#6877FF] text-white rounded-md text-xs">
+                 <FiPlus className='inline-block mr-2'/> Explore Our services
+                </button>
               </div>
             ))}
           </div>
