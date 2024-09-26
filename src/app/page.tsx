@@ -88,11 +88,11 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-x-2">
             <Image
-              src="/growthkar_logo.png"
+              src="/logo.png"
               alt="GrowthKAR"
-              width={28}
-              height={28}
-              className="w-5 h-5 sm:w-7 sm:h-7"
+              width={1000}
+              height={1000}
+              className="w-5 h-5 bg-black sm:w-7 sm:h-7"
             />
             <span className="text-white font-semibold text-sm sm:text-base">
               GrowthKAR
