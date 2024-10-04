@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
 import CustomSvg from "@/components/CustomSvg"; // Import the CustomSvg component
-import Image from 'next/image';
+import Image from "next/image";
 
 interface Section1Props {
   style: string;
@@ -59,7 +59,6 @@ function Section1({ style }: Section1Props) {
   return (
     <div className={`${style} min-h-screen`}>
       {/* Sticky Navbar */}
-      
 
       {/* Floating Banner */}
       <motion.div
@@ -69,7 +68,9 @@ function Section1({ style }: Section1Props) {
         transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
         whileHover={{ scale: 1.1 }}
       >
-        <span className="text-sm sm:text-base font-bold">🚀 Product Launch in {daysLeft} Days!</span>
+        <span className="text-sm sm:text-base font-bold">
+          🚀 Product Launch in {daysLeft} Days!
+        </span>
       </motion.div>
 
       {/* Section 1 Content */}
@@ -78,7 +79,7 @@ function Section1({ style }: Section1Props) {
         className=" grid mb-60 md:mb-0 snap-always snap-center grid-rows-2 items-center justify-items-center transition-opacity duration-1000 ease-in-out"
       >
         <div className="text-center z-10 px-4 sm:px-0 flex absolute top-[30%] flex-col items-center">
-          <p className="text-base sm:text-lg text-gray-400 mb-1">
+          <p className="text-base sm:text-lg text-white mb-1">
             Welcome to GrowthKAR
           </p>
           {/* <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">
@@ -87,7 +88,13 @@ function Section1({ style }: Section1Props) {
               Business Growth
             </span>
           </h1> */}
-          <Image src="/main.png" alt="Title" width={1000} height={1000} className='h-16 my-5 w-full object-contain'/>
+          <Image
+            src="/main.png"
+            alt="Title"
+            width={1000}
+            height={1000}
+            className="h-16 my-5 w-full object-contain"
+          />
           <button className="px-4 py-2 sm:px-6 sm:py-3 bg-gray-800 rounded-full text-lg hover:bg-gray-700 transition duration-300">
             Join Us
           </button>
