@@ -79,7 +79,7 @@ function Section1({ style }: Section1Props) {
         className=" grid mb-60 md:mb-0 snap-always snap-center grid-rows-2 items-center justify-items-center transition-opacity duration-1000 ease-in-out"
       >
         <div className="text-center z-10 px-4 sm:px-0 flex absolute top-[30%] flex-col items-center">
-          <p className="text-base sm:text-lg text-white mb-1">
+          <p className="text-2xl mb-1 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text font-bold animate-pulse">
             Welcome to GrowthKAR
           </p>
           {/* <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">

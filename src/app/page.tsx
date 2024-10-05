@@ -74,18 +74,9 @@ export default function Home() {
       </Head>
 
       {/* Sticky Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="flex justify-between items-center p-4 sm:p-8 bg-black backdrop-blur-sm transition-all duration-300">
+      <header className="w-full fixed top-0 left-0 right-0 z-50">
+        <div className="w-full flex justify-center items-center p-4 sm:p-8 bg-black backdrop-blur-sm transition-all duration-300">
           {/* Wrap the logo Image in a div to apply ref and transformations */}
-          <div ref={logoContainerRef} className="w-8 h-8 sm:w-10 sm:h-10">
-            <Image
-              src="/navbar.png"
-              alt="GrowthKAR"
-              width={40}
-              height={40}
-              className="w-8 h-8 sm:w-10 sm:h-10"
-            />
-          </div>
           <div className="flex items-center gap-x-2">
             <Image
               src="/logo.png"
@@ -98,9 +89,6 @@ export default function Home() {
               GrowthKAR
             </span>
           </div>
-          <button className="px-4 py-2 sm:px-6 sm:py-2 border rounded-full border-gray-600 hover:bg-gray-800 transition duration-300">
-            Join Us
-          </button>
         </div>
       </header>
 
@@ -112,7 +100,9 @@ export default function Home() {
         transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
         whileHover={{ scale: 1.1 }}
       >
-        <span className="text-xs md:text-base font-bold">🚀 Product Launch in {daysLeft} Days!</span>
+        <span className="text-xs md:text-base font-bold">
+          🚀 Product Launch in {daysLeft} Days!
+        </span>
       </motion.div>
 
       {/* Sections */}
