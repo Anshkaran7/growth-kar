@@ -13,7 +13,11 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
   // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1, staggerChildren: 0.3 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, staggerChildren: 0.3 },
+    },
   };
 
   const itemVariants = {
@@ -66,7 +70,7 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Freelancer Benefits
+            Service Provider Benefits
           </motion.h2>
           <motion.ul
             className="space-y-4 text-sm sm:text-base md:text-lg w-full mx-auto px-4 sm:px-6 md:px-8"

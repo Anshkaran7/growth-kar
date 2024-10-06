@@ -57,7 +57,7 @@ function Section3({ style }: Section3Props) {
         <div className="w-full absolute z-20 md:top-[25%] top-[30%] flex justify-center mt-20 overflow-hidden">
           <div
             ref={cardsContainerRef}
-            className="flex w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth"
+            className="flex w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth overflow-y-hidden"
           >
             {[
               {
