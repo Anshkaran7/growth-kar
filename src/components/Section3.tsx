@@ -18,7 +18,10 @@ function Section3({ style }: Section3Props) {
         cardsContainerRef.current.clientWidth;
 
       // Decrease the opacity more aggressively using Math.pow to create a non-linear effect
-      const opacity = Math.max(0, 1 - Math.pow(scrollLeft / maxScrollLeft, 1.5));
+      const opacity = Math.max(
+        0,
+        1 - Math.pow(scrollLeft / maxScrollLeft, 1.5)
+      );
       setTitleOpacity(opacity);
     }
   };
@@ -45,8 +48,8 @@ function Section3({ style }: Section3Props) {
           className="w-full md:w-[30%] absolute z-10 left-0 md:top-[40%] top-[10%] flex justify-center items-center py-4 px-4 md:px-0"
           style={{ opacity: titleOpacity }} // Apply dynamic opacity to the title
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-center md:text-left">
-            Our Services
+          <h2 className="font-roslindale text-3xl sm:text-4xl md:text-7xl text-center md:text-left">
+            Our Goals
           </h2>
         </div>
 
@@ -54,7 +57,7 @@ function Section3({ style }: Section3Props) {
         <div className="w-full absolute z-20 md:top-[25%] top-[30%] flex justify-center mt-20 overflow-hidden">
           <div
             ref={cardsContainerRef}
-            className="flex w-full overflow-x-auto hide-scrollbar gap-x-10 px-4 sm:px-6 scroll-snap-x scroll-smooth"
+            className="flex w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth"
           >
             {[
               {
@@ -65,7 +68,7 @@ function Section3({ style }: Section3Props) {
               {
                 title: "Established Business Expansion",
                 content:
-                  "For established companies looking to scale, we offer strategies to maximize potential and drive sustainable development. ",
+                  "For established companies looking to scale, we offer strategies to maximize potential and drive sustainable development.",
               },
               {
                 title: "Expert Freelancer Matching",
@@ -77,19 +80,20 @@ function Section3({ style }: Section3Props) {
                 key={index}
                 className={`${
                   index === 0 && "ml-0 md:ml-[400px]"
-                } relative overflow-x-visible snap-center flex-shrink-0 text-white z-20 p-4 sm:p-6 min-w-[250px] sm:min-w-[300px] w-72 sm:w-80 h-60 sm:h-60 rounded-[30px] bg-gradient-to-b from-[#ccc]/20 to-black/5 bg-blend-lighten backdrop-blur-[100px] hover:bg-opacity-80 transition-transform duration-500`}
+                } relative overflow-x-visible snap-center items-center flex-shrink-0 text-white z-20 p-6 min-w-[300px] w-96 h-[350px] rounded-3xl bg-gradient-to-b from-[#1a1a1a] to-black backdrop-blur-[10px] border-[1px] border-[#333333] flex flex-col gap-5`}
               >
                 <div className="relative z-10">
-                  <h3 className="text-lg sm:text-xl md:text-2xl mb-2 md:mb-4">
+                  <h3 className="text-2xl mb-4 px-10 text-center">
                     {service.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-400">
+                  <p className="text-sm text-gray-400 text-center">
                     {service.content}
                   </p>
                 </div>
-                <button className=" absolute bottom-4 right-20 px-4 py-2 bg-[#6877FF] text-white rounded-md text-xs">
-                 <FiPlus className='inline-block mr-2'/> Explore Our services
+                <button className="mt-4 w-48 px-4 py-2 bg-[#6877FF] text-white rounded-md text-sm flex items-center justify-center">
+                  <FiPlus className="mr-2" /> Explore Our Services
                 </button>
+                <div className="absolute -bottom-5 -left-2 h-36 w-[400px] z-10 bg-gradient-to-t from-black to-transparent" />
               </div>
             ))}
           </div>
