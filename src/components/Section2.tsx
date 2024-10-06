@@ -85,8 +85,10 @@ function Section2({ style }: Section2Props) {
           <div className="sm:w-1/2 flex items-center justify-center sm:justify-start text-center sm:text-left">
             <h1
               ref={titleRef}
-              className={`text-3xl z-50 sm:text-4xl md:text-5xl lg:text-6xl font-serif transition duration-700 ease-in-out transform ${
-                titleInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+              className={`text-3xl z-50 sm:text-4xl md:text-5xl lg:text-6xl transition duration-700 ease-in-out transform font-roslindale ${
+                titleInView
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-10"
               }`} // Adjust translate-x for better appearance
             >
               At GrowthKAR
@@ -95,11 +97,11 @@ function Section2({ style }: Section2Props) {
 
           {/* Animated Line */}
           <div
-            ref={lineRef} // Reference to the animated line
-            className={`transition-all duration-1000 ease-[cubic-bezier(0.68, -0.55, 0.27, 1.55)] transform-origin-bottom w-[1px] ${
+            ref={lineRef}
+            className={`transition-all duration-1000 ease-[cubic-bezier(0.68, -0.55, 0.27, 1.55)] transform-origin-bottom w-[3px] ${
               lineInView
-                ? "h-24 -translate-x-[10px] bg-[#C0C0C0]" // Adjusted responsiveness for smaller devices
-                : "h-[20vh] sm:h-[60vh] bg-[#C0C0C0]"
+                ? "h-24 -translate-x-[10px] glowing-gradient-line"
+                : "h-[20vh] sm:h-[60vh] glowing-gradient-line"
             }`}
           ></div>
 
@@ -107,10 +109,12 @@ function Section2({ style }: Section2Props) {
           <div
             ref={descriptionRef}
             className={`sm:w-1/2 flex items-center justify-center sm:justify-end text-center sm:text-left transition duration-700 ease-in-out transform ${
-              descriptionInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-[50px]"
+              descriptionInView
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 translate-x-[50px]"
             }`} // Adjust translate-x for better appearance
           >
-            <p className="text-base text-justify sm:text-lg lg:text-xl text-gray-400 max-w-md px-4 sm:px-0">
+            <p className="text-base text-justify sm:text-lg lg:text-xl text-gray-400 max-w-md px-4 sm:px-0 font-semibold">
               We specialize in helping companies of all sizes achieve their
               growth potential. Whether you are a startup or a mid-level
               company, we provide tailored services to support your business
