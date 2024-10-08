@@ -1,15 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 interface Section3Props {
   style: string;
 }
 
+interface ServiceItem {
+  title: string;
+  content: string;
+  bulletPoints: string[];
+}
+
 function Section3({ style }: Section3Props) {
-  const [titleOpacity, setTitleOpacity] = useState(1); // State to control the opacity of the title
+  const [titleOpacity, setTitleOpacity] = useState(1);
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
   const cardsContainerRef = useRef<HTMLDivElement | null>(null);
 
-  // Function to handle scroll event and adjust title opacity
   const handleScroll = () => {
     if (cardsContainerRef.current) {
       const scrollLeft = cardsContainerRef.current.scrollLeft;
@@ -17,7 +23,6 @@ function Section3({ style }: Section3Props) {
         cardsContainerRef.current.scrollWidth -
         cardsContainerRef.current.clientWidth;
 
-      // Decrease the opacity more aggressively using Math.pow to create a non-linear effect
       const opacity = Math.max(
         0,
         1 - Math.pow(scrollLeft / maxScrollLeft, 1.5)
@@ -34,6 +39,60 @@ function Section3({ style }: Section3Props) {
     }
   }, []);
 
+  const toggleCard = (index: number) => {
+    setExpandedCards((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
+
+  const services: ServiceItem[] = [
+    {
+      title: "Startup Growth Solutions",
+      content:
+        "We help startups navigate early challenges and establish a solid foundation for growth.",
+      bulletPoints: [
+        "Business Plan Development",
+        "Market Research And Analysis",
+        "Funding Strategy And Pitch Deck Creation",
+        "MVP (Minimum Viable Product) Planning",
+        "Early-Stage Marketing And Branding",
+        "Many More...",
+      ],
+    },
+    {
+      title: "Established Business Expansion",
+      content:
+        "For established companies looking to scale, we offer strategies to maximize potential and drive sustainable development.",
+      bulletPoints: [
+        "Market Expansion Strategy",
+        "Operational Optimization",
+        "Growth Financing",
+        "Digital Transformation",
+        "Advanced Marketing Campaigns",
+        "More Services Available...",
+      ],
+    },
+    {
+      title: "Expert Freelancer Matching",
+      content:
+        "We connect businesses with top-tier freelancers to meet specific project needs and drive growth.",
+      bulletPoints: [
+        "Skilled Professional Vetting",
+        "Project-Specific Matching",
+        "Collaboration Management",
+        "Quality Assurance",
+        "Seamless Integration Support",
+        "Additional Services...",
+      ],
+    },
+  ];
+
   const showServices = true;
 
   return (
@@ -43,57 +102,65 @@ function Section3({ style }: Section3Props) {
           showServices ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Sticky Heading */}
         <div
           className="w-full md:w-[30%] absolute z-10 left-0 md:top-[40%] top-[10%] flex justify-center items-center py-4 px-4 md:px-0"
-          style={{ opacity: titleOpacity }} // Apply dynamic opacity to the title
+          style={{ opacity: titleOpacity }}
         >
           <h2 className="font-roslindale text-3xl sm:text-4xl md:text-7xl text-center md:text-left">
             Our Goals
           </h2>
         </div>
 
-        {/* Service Cards */}
         <div className="w-full absolute z-20 md:top-[25%] top-[30%] flex justify-center mt-20 overflow-hidden">
           <div
             ref={cardsContainerRef}
             className="flex w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth overflow-y-hidden"
           >
-            {[
-              {
-                title: "Startup Growth Solutions",
-                content:
-                  "We help startups navigate early challenges and establish a solid foundation for growth.",
-              },
-              {
-                title: "Established Business Expansion",
-                content:
-                  "For established companies looking to scale, we offer strategies to maximize potential and drive sustainable development.",
-              },
-              {
-                title: "Expert Freelancer Matching",
-                content:
-                  "We connect businesses with top-tier freelancers to meet specific project needs and drive growth.",
-              },
-            ].map((service, index) => (
+            {services.map((service, index) => (
               <div
                 key={index}
                 className={`${
                   index === 0 && "ml-0 md:ml-[400px]"
-                } relative overflow-x-visible snap-center items-center flex-shrink-0 text-white z-20 p-6 min-w-[300px] w-96 h-[350px] rounded-3xl bg-gradient-to-b from-[#1a1a1a] to-black backdrop-blur-[10px] border-[1px] border-[#333333] flex flex-col gap-5`}
+                } relative overflow-x-visible snap-center items-center flex-shrink-0 text-white z-20 p-6 min-w-[300px] w-96 ${
+                  expandedCards.has(index) ? "h-[450px]" : "h-[350px]"
+                } rounded-3xl bg-gradient-to-b from-[#1a1a1a] to-black backdrop-blur-[10px] border-[1px] border-[#333333] flex flex-col justify-between transition-all duration-300`}
               >
-                <div className="relative z-10">
-                  <h3 className="text-2xl mb-4 px-10 text-center">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-gray-400 text-center">
-                    {service.content}
-                  </p>
+                <div className="flex flex-col gap-5 items-center">
+                  <div className="relative z-10">
+                    <h3 className="text-2xl mb-4 px-10 text-center">
+                      {service.title}
+                    </h3>
+                    <div className="flex flex-col justify-between h-32 items-center">
+                      <p className="text-sm text-gray-400 text-center">
+                        {service.content}
+                      </p>
+                      <button
+                        onClick={() => toggleCard(index)}
+                        className="mt-4 w-48 px-4 py-2 bg-[#6877FF] text-white rounded-md text-sm flex items-center justify-center"
+                      >
+                        {expandedCards.has(index) ? (
+                          <FiMinus className="mr-2" />
+                        ) : (
+                          <FiPlus className="mr-2" />
+                        )}
+                        {expandedCards.has(index)
+                          ? "Show Less"
+                          : "Explore Our Services"}
+                      </button>
+                    </div>
+                  </div>
+                  {expandedCards.has(index) && (
+                    <ul className="text-[#6877FF] text-sm mt-4 space-y-2">
+                      {service.bulletPoints.map((point, i) => (
+                        <li key={i}>{point}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                <button className="mt-4 w-48 px-4 py-2 bg-[#6877FF] text-white rounded-md text-sm flex items-center justify-center">
-                  <FiPlus className="mr-2" /> Explore Our Services
-                </button>
-                <div className="absolute -bottom-5 -left-2 h-36 w-[400px] z-10 bg-gradient-to-t from-black to-transparent" />
+
+                {!expandedCards.has(index) && (
+                  <div className="absolute -bottom-5 -left-2 h-36 w-[400px] z-10 bg-gradient-to-t from-black to-transparent" />
+                )}
               </div>
             ))}
           </div>
