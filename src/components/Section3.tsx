@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import { motion, useAnimation } from "framer-motion";
 
 interface Section3Props {
   style: string;
@@ -14,7 +15,47 @@ interface ServiceItem {
 function Section3({ style }: Section3Props) {
   const [titleOpacity, setTitleOpacity] = useState(1);
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const [isInView, setIsInView] = useState(false);
   const cardsContainerRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const titleControls = useAnimation();
+  const cardsControls = useAnimation();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isInView) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isInView]);
+
+  useEffect(() => {
+    const animationSequence = async () => {
+      if (isInView) {
+        // Show title
+        await titleControls.start({ opacity: 1, x: 0 });
+
+        // Wait for 3 seconds
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        await Promise.all([
+          titleControls.start({ opacity: 0, x: -50 }),
+          cardsControls.start({ x: "-12%" }),
+        ]);
+      }
+    };
+
+    animationSequence();
+  }, [isInView, titleControls, cardsControls]);
 
   const handleScroll = () => {
     if (cardsContainerRef.current) {
@@ -93,25 +134,25 @@ function Section3({ style }: Section3Props) {
     },
   ];
 
-  const showServices = true;
-
   return (
-    <div className={`${style}`}>
-      <div
-        className={`h-screen relative flex flex-col md:flex-row items-center justify-center transition-opacity duration-1000 ease-in-out ${
-          showServices ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div
+    <div className={`${style}`} ref={sectionRef}>
+      <div className="h-screen relative flex flex-col md:flex-row items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={titleControls}
           className="w-full md:w-[30%] absolute z-10 left-0 md:top-[40%] top-[10%] flex justify-center items-center py-4 px-4 md:px-0"
-          style={{ opacity: titleOpacity }}
         >
           <h2 className="font-roslindale text-3xl sm:text-4xl md:text-7xl text-center md:text-left">
             Our Goals
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="w-full absolute z-20 md:top-[25%] top-[30%] flex justify-center mt-20 overflow-hidden">
+        <motion.div
+          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center mt-20 overflow-x-scroll"
+          animate={cardsControls}
+          initial={{ x: 60 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
           <div
             ref={cardsContainerRef}
             className="flex w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth overflow-y-hidden"
@@ -164,7 +205,7 @@ function Section3({ style }: Section3Props) {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

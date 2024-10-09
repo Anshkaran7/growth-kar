@@ -98,7 +98,7 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
                   "Join teams and collaborate with like-minded professionals on long-term projects.",
               },
               {
-                title: "Long-Term Work Algorithm",
+                title: "Long-Term Work",
                 content:
                   "Our algorithm matches you with clients for long-term work engagements, ensuring job security.",
               },
