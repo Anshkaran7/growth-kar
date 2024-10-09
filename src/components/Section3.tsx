@@ -24,7 +24,7 @@ function Section3({ style }: Section3Props) {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMdScreen(window.innerWidth >= 768); // 768px is the default Tailwind md breakpoint
+      setIsMdScreen(window.innerWidth >= 768);
     };
 
     checkScreenSize();
@@ -52,18 +52,14 @@ function Section3({ style }: Section3Props) {
   useEffect(() => {
     const animationSequence = async () => {
       if (isInView) {
-        // Show title
         await titleControls.start({ opacity: 1, x: 0 });
-
-        // Wait for 2 seconds
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         await Promise.all([
-          // Only animate title on md screens and above
           isMdScreen
             ? titleControls.start({ opacity: 0, x: -50 })
             : titleControls.start({ opacity: 1, x: 0 }),
-          cardsControls.start({ x: "-12%" }),
+          cardsControls.start({ x: isMdScreen ? "-12%" : 0 }),
         ]);
       }
     };
@@ -162,20 +158,20 @@ function Section3({ style }: Section3Props) {
         </motion.div>
 
         <motion.div
-          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center md:mt-20 overflow-x-scroll"
+          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center md:mt-20 w-full md:w-fit"
           animate={cardsControls}
           initial={{ x: 60 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
           <div
             ref={cardsContainerRef}
-            className="flex w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth overflow-y-hidden"
+            className="flex flex-row w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth  overflow-y-hidden"
           >
             {services.map((service, index) => (
               <div
                 key={index}
                 className={`${
-                  index === 0 && "ml-0 md:ml-[400px]"
+                  index === 0 && "md:ml-[400px]"
                 } relative overflow-x-visible snap-center items-center flex-shrink-0 text-white z-20 p-6 min-w-[300px] w-96 ${
                   expandedCards.has(index) ? "h-[450px]" : "h-[350px]"
                 } rounded-3xl bg-gradient-to-b from-[#1a1a1a] to-black backdrop-blur-[10px] border-[1px] border-[#333333] flex flex-col justify-between transition-all duration-300`}
