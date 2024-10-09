@@ -46,7 +46,10 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
         <motion.div
           ref={ref}
           className="bg-[#FFFFFF0D] w-full mt-20 md:mt-32 lg:mt-40 px-4 sm:px-8 md:px-12 py-8 sm:py-12 relative shadow-lg flex flex-col items-center justify-center"
+          initial={{ y: 200, opacity: 0 }}
           animate={{
+            y: 0,
+            opacity: 1,
             borderTopLeftRadius: inView ? "0%" : "40%",
             borderTopRightRadius: inView ? "0%" : "40%",
           }}

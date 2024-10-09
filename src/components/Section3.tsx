@@ -162,7 +162,7 @@ function Section3({ style }: Section3Props) {
         </motion.div>
 
         <motion.div
-          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center mt-20 overflow-x-scroll"
+          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center md:mt-20 overflow-x-scroll"
           animate={cardsControls}
           initial={{ x: 60 }}
           transition={{ duration: 1, ease: "easeInOut" }}
