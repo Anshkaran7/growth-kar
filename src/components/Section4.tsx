@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 interface Section4Props {
   style: string;
@@ -9,6 +9,10 @@ interface Section4Props {
 
 const Section4: React.FC<Section4Props> = ({ style }) => {
   const [hoveredBenefit, setHoveredBenefit] = useState<number | null>(null);
+  const ref = React.useRef(null);
+  const inView = useInView(ref, {
+    amount: 0.2, // Trigger when 20% of the component is visible
+  });
 
   // Animation Variants
   const containerVariants = {
@@ -35,20 +39,23 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
       className={`${style} flex items-center justify-center w-full relative p-0`}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }} // Trigger animation when 20% of the component is visible
+      viewport={{ amount: 0.2 }}
       variants={containerVariants}
     >
       <motion.div className="h-auto relative flex flex-col items-center justify-center w-full">
         <motion.div
+          ref={ref}
           className="bg-[#FFFFFF0D] w-full mt-20 md:mt-32 lg:mt-40 px-4 sm:px-8 md:px-12 py-8 sm:py-12 relative shadow-lg flex flex-col items-center justify-center"
-          initial={{ borderRadius: "50%", opacity: 0 }}
-          animate={{ borderRadius: "0%", opacity: 1 }}
+          animate={{
+            borderTopLeftRadius: inView ? "0%" : "40%",
+            borderTopRightRadius: inView ? "0%" : "40%",
+          }}
           transition={{ duration: 1 }}
         >
           <motion.div
             className="mb-6 absolute -top-10"
             animate={{
-              y: [0, -10, 0], // Simple bounce effect
+              y: [0, -10, 0],
             }}
             transition={{
               duration: 1.5,
@@ -67,7 +74,7 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
             className="text-3xl sm:text-4xl md:text-5xl text-white font-serif mb-8 sm:mb-12 text-center"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ amount: 0.2 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
             Service Provider Benefits
@@ -77,7 +84,7 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ amount: 0.2 }}
           >
             {[
               {

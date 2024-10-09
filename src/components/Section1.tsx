@@ -8,8 +8,24 @@ interface Section1Props {
 
 function Section1({ style }: Section1Props) {
   const controls = useAnimation();
+  const welcomeControls = useAnimation();
   const contentRef = useRef<HTMLDivElement>(null);
   const [daysLeft, setDaysLeft] = useState(15);
+  const [showBusinessGrowth, setShowBusinessGrowth] = useState(false);
+
+  useEffect(() => {
+    // Start the welcome text animation sequence
+    const startAnimationSequence = async () => {
+      await welcomeControls.start("visible");
+      setShowBusinessGrowth(true);
+      await welcomeControls.start({
+        y: 0,
+        transition: { duration: 0.8, ease: "easeOut" },
+      });
+    };
+
+    startAnimationSequence();
+  }, [welcomeControls]);
 
   useEffect(() => {
     const calculateDaysLeft = () => {
@@ -49,9 +65,10 @@ function Section1({ style }: Section1Props) {
   }, [controls]);
 
   const sentence = {
-    hidden: { opacity: 1 },
+    hidden: { opacity: 1, y: 50 },
     visible: {
       opacity: 1,
+      y: 50,
       transition: {
         delay: 0.5,
         staggerChildren: 0.08,
@@ -64,6 +81,14 @@ function Section1({ style }: Section1Props) {
     visible: {
       opacity: 1,
       y: 0,
+    },
+  };
+
+  const businessGrowthVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 1.5, ease: "easeInOut" },
     },
   };
 
@@ -87,32 +112,34 @@ function Section1({ style }: Section1Props) {
       >
         <div className="text-center z-10 px-4 sm:px-0 flex absolute top-[30%] flex-col items-center gap-5">
           <motion.p
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeInOut", delay: 2.0 }}
             className="text-2xl mb-1 text-white font-semibold"
-          >
-            Welcome to GrowthKAR
-          </motion.p>
-          <motion.h1
-            className="font-roslindale text-3xl sm:text-4xl md:text-5xl font-medium"
             variants={sentence}
             initial="hidden"
-            animate="visible"
+            animate={welcomeControls}
           >
-            {"Empowering Your ".split("").map((char, index) => (
+            {"Welcome to GrowthKAR".split("").map((char, index) => (
               <motion.span key={char + "-" + index} variants={letter}>
                 {char}
               </motion.span>
             ))}
+          </motion.p>
+
+          <motion.h1
+            className="font-roslindale text-3xl sm:text-4xl md:text-5xl font-medium"
+            variants={businessGrowthVariants}
+            initial="hidden"
+            animate={showBusinessGrowth ? "visible" : "hidden"}
+          >
+            {"Empowering Your ".split("").map((char, index) => (
+              <motion.span key={char + "-" + index}>{char}</motion.span>
+            ))}
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-purple-500 bg-clip-text text-transparent">
               {"Business Growth".split("").map((char, index) => (
-                <motion.span key={char + "-" + index} variants={letter}>
-                  {char}
-                </motion.span>
+                <motion.span key={char + "-" + index}>{char}</motion.span>
               ))}
             </span>
           </motion.h1>
+
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
