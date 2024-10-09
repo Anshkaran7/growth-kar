@@ -13,13 +13,24 @@ interface ServiceItem {
 }
 
 function Section3({ style }: Section3Props) {
-  const [titleOpacity, setTitleOpacity] = useState(1);
+  const [, setTitleOpacity] = useState(1);
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
   const [isInView, setIsInView] = useState(false);
+  const [isMdScreen, setIsMdScreen] = useState(false);
   const cardsContainerRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const titleControls = useAnimation();
   const cardsControls = useAnimation();
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMdScreen(window.innerWidth >= 768); // 768px is the default Tailwind md breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,18 +55,21 @@ function Section3({ style }: Section3Props) {
         // Show title
         await titleControls.start({ opacity: 1, x: 0 });
 
-        // Wait for 3 seconds
+        // Wait for 2 seconds
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         await Promise.all([
-          titleControls.start({ opacity: 0, x: -50 }),
+          // Only animate title on md screens and above
+          isMdScreen
+            ? titleControls.start({ opacity: 0, x: -50 })
+            : titleControls.start({ opacity: 1, x: 0 }),
           cardsControls.start({ x: "-12%" }),
         ]);
       }
     };
 
     animationSequence();
-  }, [isInView, titleControls, cardsControls]);
+  }, [isInView, titleControls, cardsControls, isMdScreen]);
 
   const handleScroll = () => {
     if (cardsContainerRef.current) {
