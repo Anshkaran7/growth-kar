@@ -150,7 +150,7 @@ function Section1({ style }: Section1Props) {
           </motion.button>
         </div>
 
-        <div className="col-span-3 absolute md:bottom-36 bottom-56 flex justify-center">
+        <div className="col-span-3 absolute md:bottom-36 bottom-56 ml-24 flex justify-center">
           <video
             src="/assets/-7a40-4081-8df1-83f2461af922.mp4"
             className="w-[100px] h-[60px] sm:w-[150px] sm:h-[90px]"
