@@ -1,14 +1,14 @@
 // components/CustomSvg.tsx
-import React from 'react';
+import React from "react";
 
 const CustomSvg: React.FC = () => {
   return (
     <svg
-      width="1692"
-      height="639"
       viewBox="0 0 1692 639"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMax meet"
+      className="w-full h-full absolute bottom-0"
     >
       <g opacity="0.5" filter="url(#filter0_f_256_134)">
         <ellipse cx="880.5" cy="707" rx="411.5" ry="307" fill="#6877FF" />

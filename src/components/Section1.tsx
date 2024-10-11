@@ -93,7 +93,7 @@ function Section1({ style }: Section1Props) {
   };
 
   return (
-    <div className={`${style} min-h-screen`}>
+    <div className={`${style} min-h-screen relative overflow-hidden`}>
       <motion.div
         className="fixed bottom-8 right-8 z-50 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-lg flex items-center justify-center cursor-pointer"
         initial={{ scale: 0.9, opacity: 0.8 }}
@@ -181,11 +181,13 @@ function Section1({ style }: Section1Props) {
         </div>
 
         <motion.div
-          className="flex h-screen items-center absolute md:-bottom-36 -bottom-52 md:z-30 pl-24 justify-center"
+          className="absolute md:-bottom-20 bottom-40 ml-10 w-full max-w-screen-xl"
           initial={{ scaleX: 1, scaleY: 1, y: 0 }}
           animate={controls}
         >
-          <CustomSvg />
+          <div className="relative w-full aspect-[1692/639]">
+            <CustomSvg />
+          </div>
         </motion.div>
 
         <div className="absolute bottom-0 z-40 left-0 right-0 flex flex-col items-center gap-y-5 justify-center">
