@@ -152,7 +152,7 @@ function Section3({ style }: Section3Props) {
           animate={titleControls}
           className="w-full md:w-[30%] absolute z-10 left-0 md:top-[40%] top-[10%] flex justify-center items-center py-4 px-4 md:px-0"
         >
-          <h2 className="font-roslindale text-3xl sm:text-4xl md:text-7xl text-center md:text-left">
+          <h2 className="font-roslindale text-3xl sm:text-4xl md:text-6xl text-center md:text-left">
             Our Goals
           </h2>
         </motion.div>
@@ -165,7 +165,7 @@ function Section3({ style }: Section3Props) {
         >
           <div
             ref={cardsContainerRef}
-            className="flex flex-row w-full overflow-x-auto hide-scrollbar gap-x-5 px-4 sm:px-6 scroll-snap-x scroll-smooth  overflow-y-hidden"
+            className="flex flex-row w-full overflow-x-auto hide-scrollbar gap-x-5 px-6 sm:px-6 scroll-smooth overflow-y-hidden"
           >
             {services.map((service, index) => (
               <div
