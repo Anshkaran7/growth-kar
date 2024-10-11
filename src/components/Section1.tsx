@@ -190,7 +190,7 @@ function Section1({ style }: Section1Props) {
           </div>
         </motion.div>
 
-        <div className="absolute bottom-0 z-40 left-0 right-0 flex flex-col items-center gap-y-5 justify-center">
+        <div className="absolute md:bottom-0 bottom-20 z-40 left-0 right-0 flex flex-col items-center gap-y-5 justify-center">
           <p className="text-lg text-[#C0C0C0]">Scroll To Explore</p>
           <div className="w-[1px] h-14 bg-[#C0C0C0] rounded-full"></div>
         </div>
