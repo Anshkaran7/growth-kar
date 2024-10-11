@@ -91,24 +91,33 @@ const Section4: React.FC<Section4Props> = ({ style }) => {
           >
             {[
               {
-                title: "No Commission",
+                title: "Bidding Opportunities & Fair Competition",
                 content:
-                  "We ensure that freelancers receive 100% of their earnings without any platform commission.",
+                  "The bidding system allows providers to compete fairly based on their pricing, portfolio, and expertise.",
               },
               {
                 title: "Team Building Opportunities",
                 content:
-                  "Join teams and collaborate with like-minded professionals on long-term projects.",
+                  "GrowthKAR enables service providers to build teams through the platform.",
               },
               {
-                title: "Long-Term Work",
+                title: "Long-Term Work Algorithm",
                 content:
-                  "Our algorithm matches you with clients for long-term work engagements, ensuring job security.",
+                  "An algorithm that prioritizes long-term relationships and recurring work",
               },
               {
-                title: "Fair Work Allocation",
+                title: "Commission-Free Platform",
+                content: "GrowthKAR offers a commission-free system",
+              },
+              {
+                title: " Project Management Tools",
                 content:
-                  "Work is allocated fairly based on your skills, availability, and previous performance.",
+                  "Providing built-in tools for project management, communication, and time tracking",
+              },
+              {
+                title: "Customizable Service Packages",
+                content:
+                  "Allowing providers to create customizable packages to suit client needs",
               },
             ].map((benefit, index) => (
               <motion.li
