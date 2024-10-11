@@ -53,14 +53,14 @@ function Section3({ style }: Section3Props) {
     const animationSequence = async () => {
       if (isInView) {
         await titleControls.start({ opacity: 1, x: 0 });
-        await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        await Promise.all([
-          isMdScreen
-            ? titleControls.start({ opacity: 0, x: -50 })
-            : titleControls.start({ opacity: 1, x: 0 }),
-          cardsControls.start({ x: isMdScreen ? "-12%" : 0 }),
-        ]);
+        if (isMdScreen) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          await Promise.all([
+            titleControls.start({ opacity: 0, x: -50 }),
+            cardsControls.start({ x: "-12%" }),
+          ]);
+        }
       }
     };
 
@@ -160,8 +160,8 @@ function Section3({ style }: Section3Props) {
         <motion.div
           className="absolute z-20 md:top-[25%] top-[30%] flex justify-center md:mt-20 w-full md:w-fit"
           animate={cardsControls}
-          initial={{ x: 60 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          initial={isMdScreen ? { x: 60 } : { x: 0 }}
+          transition={isMdScreen ? { duration: 1, ease: "easeInOut" } : {}}
         >
           <div
             ref={cardsContainerRef}

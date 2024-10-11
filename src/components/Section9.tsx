@@ -1,11 +1,11 @@
 // components/Section9.tsx
-import React from 'react';
-import Card from './Card';
+import React from "react";
+import Card from "./Card";
 
 // Fixed Section Title Component
 const SectionTitle: React.FC = () => {
   return (
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center px-4">
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
         Why Choose GrowthKAR
       </h1>
@@ -45,7 +45,6 @@ const Section9: React.FC = () => {
           description="Our dedicated support team is here to help you 24/7."
           zigzagPosition="right"
         />
-        {/* Add more cards as needed */}
       </div>
     </div>
   );
