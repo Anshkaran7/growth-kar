@@ -181,7 +181,7 @@ function Section1({ style }: Section1Props) {
         </div>
 
         <motion.div
-          className="flex h-screen items-center absolute -bottom-36 z-30 md:pl-24 justify-center"
+          className="flex h-screen items-center absolute md:-bottom-36 -bottom-20 z-30 md:pl-24 pl-20 justify-center"
           initial={{ scaleX: 1, scaleY: 1, y: 0 }}
           animate={controls}
         >
