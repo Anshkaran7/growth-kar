@@ -150,7 +150,7 @@ function Section1({ style }: Section1Props) {
           </motion.button>
         </div>
 
-        <div className="col-span-3 absolute bottom-36 flex justify-center">
+        <div className="col-span-3 absolute md:bottom-36 bottom-56 flex justify-center">
           <video
             src="/assets/-7a40-4081-8df1-83f2461af922.mp4"
             className="w-[100px] h-[60px] sm:w-[150px] sm:h-[90px]"
@@ -181,7 +181,7 @@ function Section1({ style }: Section1Props) {
         </div>
 
         <motion.div
-          className="absolute md:-bottom-20 bottom-40 ml-10 w-full max-w-screen-xl"
+          className="absolute md:-bottom-20 bottom-40 md:ml-10 w-full max-w-screen-xl"
           initial={{ scaleX: 1, scaleY: 1, y: 0 }}
           animate={controls}
         >
