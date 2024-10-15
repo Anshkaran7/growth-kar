@@ -158,7 +158,7 @@ function Section3({ style }: Section3Props) {
         </motion.div>
 
         <motion.div
-          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center md:mt-20 w-full md:w-fit"
+          className="absolute z-20 md:top-[25%] top-[30%] flex justify-center md:mt-20 w-full md:w-fit ml-10"
           animate={cardsControls}
           initial={isMdScreen ? { x: 60 } : { x: 0 }}
           transition={isMdScreen ? { duration: 1, ease: "easeInOut" } : {}}

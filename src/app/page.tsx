@@ -114,7 +114,7 @@ export default function Home() {
       <Section9 />
       <Section6 style="h-screen snap-start" />
       <Section7 style="h-screen snap-start" />
-      <Section8 />
+      <Section8 id="join-us" />
     </div>
   );
 }

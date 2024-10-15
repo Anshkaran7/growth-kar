@@ -4,7 +4,11 @@ import CustomDropdown from "./CustomDropdown";
 import "tailwindcss/tailwind.css";
 import FileInput from "./FileInput";
 
-const Section8 = () => {
+interface Section8Props {
+  id?: string;
+}
+
+const Section8: React.FC<Section8Props> = ({ id }) => {
   const [activeTab, setActiveTab] = useState("startup");
   const [formData, setFormData] = useState({
     name: "",
@@ -231,7 +235,10 @@ const Section8 = () => {
   );
 
   return (
-    <section className="min-h-screen flex flex-col pb-40 snap-start items-center justify-center pt-24 md:pt-28 px-4 md:px-10 bg-black text-white">
+    <section
+      id={id}
+      className="min-h-screen flex flex-col pb-40 snap-start items-center justify-center pt-24 md:pt-28 px-4 md:px-10 bg-black text-white"
+    >
       <h2 className="text-center text-xl md:text-3xl font-bold mb-4 md:mb-6">
         Register Here
       </h2>
@@ -290,7 +297,10 @@ const Section8 = () => {
               }
               className="form-checkbox h-5 w-5 text-purple-500"
             />
-            <label htmlFor="terms" className="ml-3 text-xs md:text-base text-gray-400">
+            <label
+              htmlFor="terms"
+              className="ml-3 text-xs md:text-base text-gray-400"
+            >
               I Agree To The Terms And Conditions
             </label>
           </motion.div>
