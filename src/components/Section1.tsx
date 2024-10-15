@@ -14,14 +14,10 @@ function Section1({ style }: Section1Props) {
   const [showBusinessGrowth, setShowBusinessGrowth] = useState(false);
 
   useEffect(() => {
-    // Start the welcome text animation sequence
     const startAnimationSequence = async () => {
       await welcomeControls.start("visible");
       setShowBusinessGrowth(true);
-      await welcomeControls.start({
-        y: 0,
-        transition: { duration: 0.8, ease: "easeOut" },
-      });
+      await welcomeControls.start("moved");
     };
 
     startAnimationSequence();
@@ -64,14 +60,28 @@ function Section1({ style }: Section1Props) {
     };
   }, [controls]);
 
-  const sentence = {
-    hidden: { opacity: 1, y: 50 },
+  const welcomeTextVariants = {
+    hidden: {
+      opacity: 1,
+      y: 50,
+      color: "#FFFFFF",
+    },
     visible: {
       opacity: 1,
       y: 50,
+      color: "#FFFFFF",
       transition: {
         delay: 0.5,
         staggerChildren: 0.08,
+      },
+    },
+    moved: {
+      y: 0,
+      color: "#575757",
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        color: { duration: 1.2 }, // Slightly longer duration for color transition
       },
     },
   };
@@ -119,8 +129,8 @@ function Section1({ style }: Section1Props) {
       >
         <div className="text-center z-10 px-4 sm:px-0 flex absolute top-[30%] flex-col items-center gap-5">
           <motion.p
-            className="text-2xl mb-1 text-white font-semibold"
-            variants={sentence}
+            className="text-2xl mb-1 font-semibold"
+            variants={welcomeTextVariants}
             initial="hidden"
             animate={welcomeControls}
           >
