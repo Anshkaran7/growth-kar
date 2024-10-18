@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
 import CustomDropdown from "./CustomDropdown";
 import "tailwindcss/tailwind.css";
 import FileInput from "./FileInput";
@@ -9,8 +9,9 @@ interface Section8Props {
 }
 
 const Section8: React.FC<Section8Props> = ({ id }) => {
-  const [activeTab, setActiveTab] = useState("startup");
+  const [activeTab, setActiveTab] = useState("seeker");
   const [formData, setFormData] = useState({
+    // Common fields
     name: "",
     contactName: "",
     email: "",
@@ -18,23 +19,27 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     address: "",
     website: "",
     description: "",
-    role: "",
-    services: "",
-    experience: "",
-    portfolio: "",
-    pricingModel: "",
-    founderName: "",
-    founderRole: "",
-    founderEmail: "",
-    founderPhone: "",
-    entityType: "",
     businessStructure: "",
     industrySector: "",
-    companyStage: "",
-    fundingStage: "",
-    teamStatus: "",
-    interestedServices: [],
-    additionalNotes: "",
+
+    // Service Seeker specific fields
+    businessStage: "",
+    businessSize: "",
+    serviceType: [],
+    timeline: "",
+
+    // Service Provider specific fields
+    designation: "",
+    primaryServiceCategory: "",
+    specificServices: [],
+    experience: "",
+    serviceArea: "",
+    teamStructure: "",
+    teamSize: "",
+    coreTeamMembers: "",
+    supportStaff: "",
+    teamBuildingRequirements: [],
+
     agreeToTerms: false,
   });
 
@@ -54,7 +59,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     // Handle form submission logic here
   };
 
-  const startupFields = (
+  const seekerFields = (
     <motion.div
       className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
       initial={{ opacity: 0, y: 50 }}
@@ -62,104 +67,145 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Startup-specific Fields */}
       <input
         type="text"
         name="name"
-        placeholder="Company/Startup Name"
+        placeholder="Company/Business Name"
         value={formData.name}
         onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
-      />
-      <input
-        type="text"
-        name="founderName"
-        placeholder="Founder Name"
-        value={formData.founderName}
-        onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
-      />
-      <input
-        type="email"
-        name="founderEmail"
-        placeholder="Founder Email"
-        value={formData.founderEmail}
-        onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
-      />
-      <input
-        type="text"
-        name="founderPhone"
-        placeholder="Founder Phone Number"
-        value={formData.founderPhone}
-        onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
       />
       <CustomDropdown
-        title="Business Entity Type"
+        title="Business Stage"
         options={[
-          "Sole Proprietorship",
-          "Partnership",
-          "LLC",
-          "Private Company",
-          "Public Company",
-          "NPO",
-          "Co-op",
+          "Planning Stage",
+          "Startup (0-3 years)",
+          "Established Business",
           "Other",
         ]}
-        selectedOption={formData.entityType}
-        onSelect={(option) => handleDropdownChange("entityType", option)}
-      />
-      <CustomDropdown
-        title="Business Structure"
-        options={[
-          "Startup",
-          "SME",
-          "Large Corporation",
-          "Family-Owned Business",
-          "Other",
-        ]}
-        selectedOption={formData.businessStructure}
-        onSelect={(option) => handleDropdownChange("businessStructure", option)}
+        selectedOption={formData.businessStage}
+        onSelect={(option) => handleDropdownChange("businessStage", option)}
       />
       <CustomDropdown
         title="Industry Sector"
         options={[
-          "Technology",
-          "Finance",
-          "Healthcare",
+          "Information Technology",
           "Manufacturing",
+          "Healthcare",
           "Education",
-          "Retail",
-          "Marketing/Advertising",
+          "Financial Services",
+          "Retail & E-commerce",
+          "Food & Beverage",
+          "Real Estate",
+          "Agriculture",
+          "Transportation & Logistics",
+          "Media & Entertainment",
+          "Travel & Tourism",
           "Other",
         ]}
         selectedOption={formData.industrySector}
         onSelect={(option) => handleDropdownChange("industrySector", option)}
       />
       <CustomDropdown
-        title="Company Stage"
-        options={["Idea", "MVP", "Growth", "Scaling"]}
-        selectedOption={formData.companyStage}
-        onSelect={(option) => handleDropdownChange("companyStage", option)}
+        title="Business Structure"
+        options={[
+          "Sole Proprietorship",
+          "Partnership",
+          "LLC",
+          "Corporation",
+          "Other",
+        ]}
+        selectedOption={formData.businessStructure}
+        onSelect={(option) => handleDropdownChange("businessStructure", option)}
       />
       <CustomDropdown
-        title="Funding Stage"
-        options={["Pre-seed", "Seed", "Series A, B, C", "Not Funded"]}
-        selectedOption={formData.fundingStage}
-        onSelect={(option) => handleDropdownChange("fundingStage", option)}
+        title="Business Size"
+        options={[
+          "Micro (1-9 employees)",
+          "Small (10-49 employees)",
+          "Medium (50-249 employees)",
+          "Large (250+ employees)",
+        ]}
+        selectedOption={formData.businessSize}
+        onSelect={(option) => handleDropdownChange("businessSize", option)}
+      />
+      <input
+        type="text"
+        name="website"
+        placeholder="Company Website/URL"
+        value={formData.website}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="contactName"
+        placeholder="Primary Contact Person"
+        value={formData.contactName}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="phone"
+        placeholder="Phone"
+        value={formData.phone}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="address"
+        placeholder="Location/City"
+        value={formData.address}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <CustomDropdown
+        title="Type of Service Needed"
+        options={[
+          "Business Consulting",
+          "Legal Services",
+          "Financial Services",
+          "Marketing Services",
+          "IT Services",
+          "HR Services",
+          "Other",
+        ]}
+        selectedOption={formData.serviceType}
+        onSelect={(option) => handleDropdownChange("serviceType", option)}
+        multiple={true}
       />
       <textarea
         name="description"
-        placeholder="About Your Company/Startup"
+        placeholder="Brief Description of Service Required"
         value={formData.description}
         onChange={handleInputChange}
         className="input-field w-full col-span-1 md:col-span-2 p-3 md:p-4 text-sm md:text-base"
       ></textarea>
+      <CustomDropdown
+        title="Expected Timeline"
+        options={[
+          "Immediate",
+          "Within 1 month",
+          "1-3 months",
+          "More than 3 months",
+        ]}
+        selectedOption={formData.timeline}
+        onSelect={(option) => handleDropdownChange("timeline", option)}
+      />
     </motion.div>
   );
 
-  const freelancerFields = (
+  const providerFields = (
     <motion.div
       className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2"
       initial={{ opacity: 0, y: 50 }}
@@ -167,69 +213,174 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Freelancer-specific Fields */}
       <input
         type="text"
         name="name"
-        placeholder="Name / Company Name"
+        placeholder="Company/Organization/Person Name"
         value={formData.name}
         onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <CustomDropdown
+        title="Business Structure"
+        options={[
+          "Individual Professional",
+          "Partnership Firm",
+          "Company",
+          "Other",
+        ]}
+        selectedOption={formData.businessStructure}
+        onSelect={(option) => handleDropdownChange("businessStructure", option)}
+      />
+      <input
+        type="text"
+        name="contactName"
+        placeholder="Primary Contact Person"
+        value={formData.contactName}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="designation"
+        placeholder="Designation"
+        value={formData.designation}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
       />
       <input
         type="email"
         name="email"
-        placeholder="Email Address"
+        placeholder="Email"
         value={formData.email}
         onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
       />
       <input
         type="text"
         name="phone"
-        placeholder="Phone Number"
+        placeholder="Phone"
         value={formData.phone}
         onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-purple-500"
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="address"
+        placeholder="Business Address"
+        value={formData.address}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="website"
+        placeholder="Website (if any)"
+        value={formData.website}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
       />
       <CustomDropdown
-        title="Choose Your Role"
-        options={["Developer", "Designer", "Consultant", "Marketer", "Other"]}
-        selectedOption={formData.role}
-        onSelect={(option) => handleDropdownChange("role", option)}
-      />
-      <CustomDropdown
-        title="Services Provided"
+        title="Primary Service Category"
         options={[
-          "Web Development",
-          "App Development",
-          "Graphic Design",
-          "SEO",
+          "Business Consulting",
+          "Legal Services",
+          "Financial Services",
+          "Marketing Services",
+          "IT Services",
+          "HR Services",
           "Other",
         ]}
-        selectedOption={formData.services}
-        onSelect={(option) => handleDropdownChange("services", option)}
+        selectedOption={formData.primaryServiceCategory}
+        onSelect={(option) =>
+          handleDropdownChange("primaryServiceCategory", option)
+        }
       />
       <CustomDropdown
-        title="Experience Level"
-        options={["Junior", "Mid", "Senior", "Expert"]}
+        title="Specific Services Offered"
+        options={[
+          "Business Strategy",
+          "Legal Consultation",
+          "Tax Services",
+          "Digital Marketing",
+          "Software Development",
+          "Recruitment",
+          "Other",
+        ]}
+        selectedOption={formData.specificServices}
+        onSelect={(option) => handleDropdownChange("specificServices", option)}
+        multiple={true}
+      />
+      <CustomDropdown
+        title="Experience in Field"
+        options={["1-3 years", "4-7 years", "8-10 years", "10+ years"]}
         selectedOption={formData.experience}
         onSelect={(option) => handleDropdownChange("experience", option)}
       />
+      <CustomDropdown
+        title="Service Area Coverage"
+        options={["Local", "Regional", "National", "International"]}
+        selectedOption={formData.serviceArea}
+        onSelect={(option) => handleDropdownChange("serviceArea", option)}
+      />
+      <CustomDropdown
+        title="Current Team Structure"
+        options={[
+          "I have an established team",
+          "I am a solo professional",
+          "Looking to build a team",
+          "In process of building team",
+        ]}
+        selectedOption={formData.teamStructure}
+        onSelect={(option) => handleDropdownChange("teamStructure", option)}
+      />
+      <input
+        type="number"
+        name="teamSize"
+        placeholder="Total Team Size"
+        value={formData.teamSize}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="number"
+        name="coreTeamMembers"
+        placeholder="Core Team Members"
+        value={formData.coreTeamMembers}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="number"
+        name="supportStaff"
+        placeholder="Support Staff"
+        value={formData.supportStaff}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <CustomDropdown
+        title="Team Building Requirements"
+        options={[
+          "Not looking for team members",
+          "Looking for team members in Technical Roles",
+          "Looking for team members in Management Roles",
+          "Looking for team members in Support Roles",
+          "Looking for team members with Specialized Skills",
+        ]}
+        selectedOption={formData.teamBuildingRequirements}
+        onSelect={(option) =>
+          handleDropdownChange("teamBuildingRequirements", option)
+        }
+        multiple={true}
+      />
       <FileInput
         name="portfolio"
-        title="Upload Portfolio"
+        title="Upload Portfolio Documents"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleInputChange({
             target: { name: "portfolio", value: e.target.value },
           } as React.ChangeEvent<HTMLInputElement>)
         }
-      />
-      <CustomDropdown
-        title="Pricing Model"
-        options={["Hourly", "Project-based", "Retainer"]}
-        selectedOption={formData.pricingModel}
-        onSelect={(option) => handleDropdownChange("pricingModel", option)}
       />
     </motion.div>
   );
@@ -243,7 +394,6 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         Register Here
       </h2>
       <div className="w-full max-w-3xl md:max-w-5xl b p-6 md:p-8 rounded-lg">
-        {/* Tab Navigation */}
         <motion.div
           className="flex justify-center mb-6"
           initial={{ opacity: 0 }}
@@ -251,7 +401,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
         >
-          {["startup", "freelancer"].map((tab) => (
+          {["seeker", "provider"].map((tab) => (
             <button
               key={tab}
               className={`px-3 md:px-4 py-2 mx-1 md:mx-2 text-sm md:text-base transition-colors duration-300 ease-in-out ${
@@ -261,12 +411,11 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
               }`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {tab === "seeker" ? "Service Seeker" : "Service Provider"}
             </button>
           ))}
         </motion.div>
 
-        {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
           className="transition-opacity duration-500 ease-in-out"
@@ -275,9 +424,8 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
         >
-          {activeTab === "startup" ? startupFields : freelancerFields}
+          {activeTab === "seeker" ? seekerFields : providerFields}
 
-          {/* Terms and Conditions */}
           <motion.div
             className="flex items-center mt-4 md:mt-6"
             initial={{ scale: 0.9, opacity: 0 }}
@@ -305,7 +453,6 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
             </label>
           </motion.div>
 
-          {/* Submit Button */}
           <motion.div
             className="flex justify-end mt-4 md:mt-6"
             initial={{ scale: 0.9, opacity: 0 }}
