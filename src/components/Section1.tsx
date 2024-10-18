@@ -111,7 +111,7 @@ function Section1({ style }: Section1Props) {
 
   return (
     <div className={`${style} min-h-screen relative overflow-hidden`}>
-      <motion.div
+      {/* <motion.div
         className="fixed bottom-8 right-8 z-50 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-lg flex items-center justify-center cursor-pointer"
         initial={{ scale: 0.9, opacity: 0.8 }}
         animate={{ scale: [1, 1.1, 1], opacity: 1 }}
@@ -121,7 +121,7 @@ function Section1({ style }: Section1Props) {
         <span className="text-sm sm:text-base font-bold">
           🚀 Product Launch in {daysLeft} Days!
         </span>
-      </motion.div>
+      </motion.div> */}
 
       <div
         ref={contentRef}
