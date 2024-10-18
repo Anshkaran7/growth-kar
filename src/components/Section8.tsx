@@ -184,13 +184,6 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         onSelect={(option) => handleDropdownChange("serviceType", option)}
         multiple={true}
       />
-      <textarea
-        name="description"
-        placeholder="Brief Description of Service Required"
-        value={formData.description}
-        onChange={handleInputChange}
-        className="input-field w-full col-span-1 md:col-span-2 p-3 md:p-4 text-sm md:text-base"
-      ></textarea>
       <CustomDropdown
         title="Expected Timeline"
         options={[
@@ -202,6 +195,13 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         selectedOption={formData.timeline}
         onSelect={(option) => handleDropdownChange("timeline", option)}
       />
+      <textarea
+        name="description"
+        placeholder="Brief Description of Service Required"
+        value={formData.description}
+        onChange={handleInputChange}
+        className="input-field w-full col-span-1 md:col-span-2 p-3 md:p-4 text-sm md:text-base"
+      ></textarea>
     </motion.div>
   );
 
