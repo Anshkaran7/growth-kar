@@ -10,7 +10,6 @@ function Section1({ style }: Section1Props) {
   const controls = useAnimation();
   const welcomeControls = useAnimation();
   const contentRef = useRef<HTMLDivElement>(null);
-  const [daysLeft, setDaysLeft] = useState(15);
   const [showBusinessGrowth, setShowBusinessGrowth] = useState(false);
 
   useEffect(() => {
@@ -23,19 +22,7 @@ function Section1({ style }: Section1Props) {
     startAnimationSequence();
   }, [welcomeControls]);
 
-  useEffect(() => {
-    const calculateDaysLeft = () => {
-      const launchDate = new Date("2024-09-25");
-      const currentDate = new Date();
-      const timeDifference = launchDate.getTime() - currentDate.getTime();
-      const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-      setDaysLeft(daysRemaining > 0 ? daysRemaining : 0);
-    };
 
-    calculateDaysLeft();
-    const intervalId = setInterval(calculateDaysLeft, 24 * 60 * 60 * 1000);
-    return () => clearInterval(intervalId);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

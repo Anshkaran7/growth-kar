@@ -1,6 +1,7 @@
 // components/Card.tsx
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface CardProps {
   imageSrc: string;
@@ -30,7 +31,7 @@ const Card: React.FC<CardProps> = ({
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className="flex justify-center mb-4">
-        <img
+        <Image
           src={imageSrc}
           alt={title}
           className="max-w-full max-h-52 object-contain"

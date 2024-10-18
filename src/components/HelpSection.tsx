@@ -1,6 +1,7 @@
 // components/Section.jsx
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface HelpSectionProps {
   title: string;
@@ -32,7 +33,7 @@ const HelpSection: React.FC<HelpSectionProps> = ({ title, content, image, style 
       <div className="flex items-center space-x-8 max-w-4xl">
         <div className="relative w-64 h-64">
           {/* Image area */}
-          <img src={image} alt={title} className="w-full h-full object-contain" />
+          <Image src={image} alt={title} className="w-full h-full object-contain" />
         </div>
         <div className="max-w-md">
           <h2 className="text-3xl font-bold mb-4">{title}</h2>
