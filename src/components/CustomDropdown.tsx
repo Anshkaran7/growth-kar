@@ -2,18 +2,22 @@ import { useState, useRef, useEffect } from "react";
 import { FiChevronDown, FiSearch } from "react-icons/fi";
 import { MdClear } from "react-icons/md";
 
-const CustomDropdown = ({
-  title,
-  options,
-  selectedOption,
-  onSelect,
-  multiple = false,
-}: {
+interface CustomDropdownProps {
   title: string;
   options: string[];
   selectedOption: string | string[];
   onSelect: (option: string | string[]) => void;
   multiple?: boolean;
+  disabled?: boolean; // New disabled prop
+}
+
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  title,
+  options,
+  selectedOption,
+  onSelect,
+  multiple = false,
+  disabled = false, // Default to false
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,11 +68,14 @@ const CustomDropdown = ({
   }, [isOpen]);
 
   return (
-    <div className="relative w-full" ref={dropdownRef}>
+    <div
+      className={`relative w-full ${disabled ? "opacity-50 pointer-events-none" : ""}`}
+      ref={dropdownRef}
+    >
       {/* Dropdown button */}
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => !disabled && setIsOpen(!isOpen)}
         className="w-full px-4 py-3 text-left rounded-[15px] bg-[rgba(255,255,255,0.05)] text-[#666666] border border-[#3a3a3a] focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center justify-between transition duration-200 ease-in-out hover:bg-[rgba(255,255,255,0.1)]"
       >
         {multiple
