@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { X } from "lucide-react"; // Importing the X icon from lucide-react
 
 const FileInput = ({
   name,
@@ -9,37 +10,54 @@ const FileInput = ({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
 }) => {
-  const [fileName, setFileName] = useState<string | null>(null); // Store selected file name
+  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFileName(e.target.files[0].name); // Update file name state
-      onChange(e); // Call parent's onChange handler
+      setFileName(e.target.files[0].name);
+      onChange(e);
+    }
+  };
+
+  const handleCancelClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setFileName(null);
+    if (onChange) {
+      // Create a synthetic event to clear the file input
+      const syntheticEvent = {
+        target: { name, value: "", files: null },
+      } as React.ChangeEvent<HTMLInputElement>;
+      onChange(syntheticEvent);
     }
   };
 
   return (
     <div className="relative w-full">
-      {/* Hidden File Input */}
       <input
         type="file"
         id={name}
         name={name}
-        className="hidden" // Hide the actual file input
+        className="hidden"
         onChange={handleFileChange}
       />
-      {/* Custom File Input Button */}
       <label
         htmlFor={name}
-        className="flex items-center justify-between w-full px-4 py-3 text-left bg-[rgba(255,255,255,0.05)] text-[#c1c1c1] border border-[#3a3a3a] rounded-[15px] cursor-pointer hover:bg-[rgba(255,255,255,0.1)] transition duration-200 ease-in-out focus-within:ring-2 focus-within:ring-purple-500"
+        className="flex items-center justify-between w-full px-4 py-3 text-left bg-[rgba(255,255,255,0.05)] text-[#666666] border border-[#3a3a3a] rounded-[15px] cursor-pointer hover:bg-[rgba(255,255,255,0.1)] transition duration-200 ease-in-out focus-within:ring-2 focus-within:ring-purple-500"
       >
-        {/* Display Selected File Name or Default Title */}
-        <span className="flex-grow">
+        <span className="flex-grow truncate">
           {fileName ? fileName : title}
         </span>
-        {/* Icon or Button Part */}
         <div className="flex items-center space-x-2 text-gray-400">
-          <span className="text-sm">Browse</span>
+          {fileName ? (
+            <button
+              onClick={handleCancelClick}
+              className="p-1 hover:bg-[rgba(255,255,255,0.1)] rounded-full transition duration-200 ease-in-out"
+            >
+              <X size={16} />
+            </button>
+          ) : (
+            <span className="text-sm">Browse</span>
+          )}
         </div>
       </label>
     </div>

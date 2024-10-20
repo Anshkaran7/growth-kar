@@ -42,7 +42,6 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     agreeToTerms: false,
   });
 
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -58,6 +57,14 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     e.preventDefault();
     // Handle form submission logic here
   };
+
+  const numberInputStyle = `
+  input-field w-full p-3 md:p-4 text-sm md:text-base
+  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
+`;
+
+  const teamSizeOptions = ["Self", "2-10", "10-20", "20-40", "40-50+"];
+
   const seekerFields = (
     <motion.div
       className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
@@ -73,10 +80,16 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.name}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <CustomDropdown
         title="Business Stage"
-        options={["Planning Stage", "Startup (0-3 years)", "Established Business", "Other"]}
+        options={[
+          "Planning Stage",
+          "Startup (0-3 years)",
+          "Established Business",
+          "Other",
+        ]}
         selectedOption={formData.businessStage}
         onSelect={(option) => handleDropdownChange("businessStage", option)}
       />
@@ -102,13 +115,24 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       />
       <CustomDropdown
         title="Business Structure"
-        options={["Sole Proprietorship", "Partnership", "LLC", "Corporation", "Other"]}
+        options={[
+          "Sole Proprietorship",
+          "Partnership",
+          "LLC",
+          "Corporation",
+          "Other",
+        ]}
         selectedOption={formData.businessStructure}
         onSelect={(option) => handleDropdownChange("businessStructure", option)}
       />
       <CustomDropdown
         title="Business Size"
-        options={["Micro (1-9 employees)", "Small (10-49 employees)", "Medium (50-249 employees)", "Large (250+ employees)"]}
+        options={[
+          "Micro (1-9 employees)",
+          "Small (10-49 employees)",
+          "Medium (50-249 employees)",
+          "Large (250+ employees)",
+        ]}
         selectedOption={formData.businessSize}
         onSelect={(option) => handleDropdownChange("businessSize", option)}
       />
@@ -119,6 +143,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.website}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
         type="text"
@@ -127,6 +152,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.contactName}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
         type="email"
@@ -135,14 +161,17 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.email}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
-        type="text"
+        type="number"
         name="phone"
         placeholder="Phone"
         value={formData.phone}
         onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        min="0"
+        className={numberInputStyle}
+        autoComplete="off"
       />
       <input
         type="text"
@@ -151,6 +180,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.address}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <CustomDropdown
         title="Type of Service Needed"
@@ -169,7 +199,12 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       />
       <CustomDropdown
         title="Expected Timeline"
-        options={["Immediate", "Within 1 month", "1-3 months", "More than 3 months"]}
+        options={[
+          "Immediate",
+          "Within 1 month",
+          "1-3 months",
+          "More than 3 months",
+        ]}
         selectedOption={formData.timeline}
         onSelect={(option) => handleDropdownChange("timeline", option)}
       />
@@ -182,7 +217,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       ></textarea>
     </motion.div>
   );
-  
+
   const providerFields = (
     <motion.div
       className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
@@ -199,14 +234,20 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.name}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <CustomDropdown
         title="Business Structure"
-        options={["Individual Professional", "Partnership Firm", "Company", "Other"]}
+        options={[
+          "Individual Professional",
+          "Partnership Firm",
+          "Company",
+          "Other",
+        ]}
         selectedOption={formData.businessStructure}
         onSelect={(option) => handleDropdownChange("businessStructure", option)}
       />
-  
+
       {/* Contact Information */}
       <input
         type="text"
@@ -215,6 +256,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.contactName}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
         type="text"
@@ -223,6 +265,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.designation}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
         type="email"
@@ -231,14 +274,17 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.email}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
-        type="text"
+        type="number"
         name="phone"
         placeholder="Phone"
         value={formData.phone}
         onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        min="0"
+        className={numberInputStyle}
+        autoComplete="off"
       />
       <input
         type="text"
@@ -247,6 +293,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.address}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
       <input
         type="text"
@@ -255,8 +302,9 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         value={formData.website}
         onChange={handleInputChange}
         className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
       />
-  
+
       {/* Service Details */}
       <CustomDropdown
         title="Primary Service Category"
@@ -270,7 +318,9 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           "Other",
         ]}
         selectedOption={formData.primaryServiceCategory}
-        onSelect={(option) => handleDropdownChange("primaryServiceCategory", option)}
+        onSelect={(option) =>
+          handleDropdownChange("primaryServiceCategory", option)
+        }
       />
       <CustomDropdown
         title="Specific Services Offered"
@@ -299,7 +349,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         selectedOption={formData.serviceArea}
         onSelect={(option) => handleDropdownChange("serviceArea", option)}
       />
-  
+
       {/* Team Building Requirements */}
       <CustomDropdown
         title="Current Team Structure"
@@ -312,31 +362,25 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
         selectedOption={formData.teamStructure}
         onSelect={(option) => handleDropdownChange("teamStructure", option)}
       />
-      <input
-        type="number"
-        name="teamSize"
-        placeholder="Total Team Size"
-        value={formData.teamSize}
-        onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      <CustomDropdown
+        title="Total Team Size"
+        options={teamSizeOptions}
+        selectedOption={formData.teamSize}
+        onSelect={(option) => handleDropdownChange("teamSize", option)}
       />
-      <input
-        type="number"
-        name="coreTeamMembers"
-        placeholder="Core Team Members"
-        value={formData.coreTeamMembers}
-        onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      <CustomDropdown
+        title="Core Team Members"
+        options={teamSizeOptions}
+        selectedOption={formData.coreTeamMembers}
+        onSelect={(option) => handleDropdownChange("coreTeamMembers", option)}
       />
-      <input
-        type="number"
-        name="supportStaff"
-        placeholder="Support Staff"
-        value={formData.supportStaff}
-        onChange={handleInputChange}
-        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      <CustomDropdown
+        title="Support Staff"
+        options={teamSizeOptions}
+        selectedOption={formData.supportStaff}
+        onSelect={(option) => handleDropdownChange("supportStaff", option)}
       />
-  
+
       <CustomDropdown
         title="Team Building Requirements"
         options={[
@@ -347,10 +391,12 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           "Looking for team members with Specialized Skills",
         ]}
         selectedOption={formData.teamBuildingRequirements}
-        onSelect={(option) => handleDropdownChange("teamBuildingRequirements", option)}
+        onSelect={(option) =>
+          handleDropdownChange("teamBuildingRequirements", option)
+        }
         multiple
       />
-  
+
       {/* Portfolio Upload */}
       <FileInput
         name="portfolio"
@@ -361,8 +407,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       />
     </motion.div>
   );
-  
-  
+
   return (
     <section
       id={id}

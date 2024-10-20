@@ -34,6 +34,8 @@ const Card: React.FC<CardProps> = ({
         <Image
           src={imageSrc}
           alt={title}
+          width={200}
+          height={200}
           className="max-w-full max-h-52 object-contain"
         />
       </div>

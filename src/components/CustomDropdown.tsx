@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FiChevronDown, FiSearch } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 import { MdClear } from "react-icons/md";
 
 interface CustomDropdownProps {
@@ -69,7 +69,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
   return (
     <div
-      className={`relative w-full ${disabled ? "opacity-50 pointer-events-none" : ""}`}
+      className={`relative w-full ${
+        disabled ? "opacity-50 pointer-events-none" : ""
+      }`}
       ref={dropdownRef}
     >
       {/* Dropdown button */}
@@ -104,7 +106,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       {isOpen && (
         <div className="absolute z-10 w-full bg-[#2a2a2a] text-white rounded-[15px] shadow-lg mt-1 border border-gray-600 flex flex-col max-h-60 overflow-hidden">
           {/* Search Input */}
-          <div className="sticky top-0 bg-[#2a2a2a] p-2 z-20 border-b border-gray-500 rounded-t-[15px]">
+          {/* <div className="sticky top-0 bg-[#2a2a2a] p-2 z-20 border-b border-gray-500 rounded-t-[15px]">
             <div className="relative">
               <FiSearch className="absolute top-3 left-3 text-gray-400" />
               <input
@@ -121,7 +123,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 />
               )}
             </div>
-          </div>
+          </div> */}
           {/* Options List */}
           <div
             ref={optionsRef}
