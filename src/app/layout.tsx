@@ -23,7 +23,7 @@ const roslindaleVariable = localFont({
 
 // Enhanced Metadata for SEO and Social Sharing
 export const metadata: Metadata = {
-  title: "GrowthKAR",
+  title: "Growth KAR",
   description:
     "GrowthKAR is a startup accelerator that helps startups grow, scale, and succeed globally.",
   keywords: [
