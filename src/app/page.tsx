@@ -1,9 +1,8 @@
 "use client";
 
 import Head from "next/head";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { useEffect, useRef } from "react";
+import {  useAnimation } from "framer-motion";
 import Section1 from "@/components/Section1";
 import Section2 from "@/components/Section2";
 import Section3 from "@/components/Section3";
@@ -18,11 +17,8 @@ export default function Home() {
   const controls = useAnimation(); // Framer Motion controls for animations
   const contentRef = useRef<HTMLDivElement>(null); // Ref for the content section
   const logoContainerRef = useRef<HTMLDivElement>(null); // Ref for the logo container
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
 
-  const toggleMessage = () => {
-    setIsMessageVisible(!isMessageVisible);
-  };
+
 
 
   // Scroll animations for SVG and content
