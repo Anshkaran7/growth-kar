@@ -10,9 +10,6 @@ interface Section8Props {
 
 const Section8: React.FC<Section8Props> = ({ id }) => {
   const [activeTab, setActiveTab] = useState("seeker");
-  const [error, setError] = useState<string | null>(null);
-      const [success, setSuccess] = useState<string | null>(null);
-      const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     // Common fields
     name: "",
@@ -56,67 +53,9 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setSuccess(null);
-
-    const apiUrl =
-      activeTab === "seeker"
-        ? "http://localhost:3000/api/startups/" // Endpoint for service seekers
-        : "http://localhost:3000/api/freelancers/"; // Endpoint for service providers
-
-    const payload = { ...formData };
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to submit the form");
-      }
-      
-      const result = await response.json();
-      setSuccess("Registration successful!");
-      setFormData({
-        // Reset form data
-        name: "",
-        contactName: "",
-        email: "",
-        phone: "",
-        address: "",
-        website: "",
-        description: "",
-        businessStructure: "",
-        industrySector: "",
-        businessStage: "",
-        businessSize: "",
-        serviceType: [] as string[],
-        timeline: "",
-        designation: "",
-        primaryServiceCategory: "",
-        specificServices: [] as string[],
-        experience: "",
-        serviceArea: "",
-        teamStructure: "",
-        teamSize: "",
-        coreTeamMembers: "",
-        supportStaff: "",
-        teamBuildingRequirements: [] as string[],
-        agreeToTerms: false,
-      });
-    } catch (err: any) {
-      setError(err.message || "An error occurred while submitting the form.");
-    } finally {
-      setLoading(false);
-    }
+    // Handle form submission logic here
   };
 
   const numberInputStyle = `

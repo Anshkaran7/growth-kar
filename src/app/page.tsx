@@ -13,8 +13,6 @@ import Section6 from "@/components/Section6";
 import Section7 from "@/components/Section7";
 import Section8 from "@/components/Section8";
 import Section9 from "@/components/Section9";
-import { Button } from "@/components/ui/button";
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   const controls = useAnimation(); // Framer Motion controls for animations
