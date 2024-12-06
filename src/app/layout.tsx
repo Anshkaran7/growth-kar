@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     siteName: "GrowthKAR",
     images: [
       {
-        url: "https://growthkar.com/images/og-image.jpg",
+        url: "https://growthkar.com/growthkar_logo.png",
         width: 1200,
         height: 630,
         alt: "GrowthKAR - Helping Startups Scale",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     title: "GrowthKAR - Accelerating Startups for Success",
     description:
       "Mentorship, funding, and resources to help startups grow and scale globally.",
-    images: ["https://growthkar.com/images/og-image.jpg"],
+    images: ["https://growthkar.com/growthkar_logo.png"],
   },
 };
 

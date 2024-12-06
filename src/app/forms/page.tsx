@@ -1,18 +1,90 @@
+"use client"
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import CustomDropdown from "./CustomDropdown";
+
 import "tailwindcss/tailwind.css";
-import FileInput from "./FileInput";
+
+import { registerFreelancer, registerStartup } from "@/services/api";
+import CustomDropdown from "@/components/CustomDropdown";
+import FileInput from "@/components/FileInput";
 
 interface Section8Props {
   id?: string;
 }
 
+// Common fields
+interface CommonFields {
+  name: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  address: string; // Optional: You can split it into more detailed fields
+  website?: string;
+  description?: string;
+  businessStructure: string;
+  industrySector: string;
+}
+
+// Service Seeker fields
+interface ServiceSeekerFields {
+  businessStage: string;
+  businessSize: string;
+  serviceType: string[]; // Multiple services
+  timeline: string;
+}
+
+// Service Provider fields
+interface ServiceProviderFields {
+  designation: string;
+  primaryServiceCategory: string;
+  specificServices: string[]; // Multiple services
+  experience: string;
+  serviceArea: string;
+  teamStructure: string;
+  teamSize: string;
+  coreTeamMembers: string;
+  supportStaff: string;
+  teamBuildingRequirements: string[]; // Multiple requirements
+  agreeToTerms: boolean;
+}
+
+// Full Form Data
+export interface FormData extends CommonFields, ServiceSeekerFields, ServiceProviderFields {}
+
+// Default State for Form Data
+export const initialFormData: FormData = {
+  name: '',
+  contactName: '',
+  email: '',
+  phone: '',
+  address: '',
+  website: '',
+  description: '',
+  businessStructure: '',
+  industrySector: '',
+
+  // Service Seeker defaults
+  businessStage: '',
+  businessSize: '',
+  serviceType: [],
+  timeline: '',
+
+  // Service Provider defaults
+  designation: '',
+  primaryServiceCategory: '',
+  specificServices: [],
+  experience: '',
+  serviceArea: '',
+  teamStructure: '',
+  teamSize: '',
+  coreTeamMembers: '',
+  supportStaff: '',
+  teamBuildingRequirements: [],
+  agreeToTerms: false,
+};
+
 const Section8: React.FC<Section8Props> = ({ id }) => {
   const [activeTab, setActiveTab] = useState("seeker");
-  const [error, setError] = useState<string | null>(null);
-      const [success, setSuccess] = useState<string | null>(null);
-      const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     // Common fields
     name: "",
@@ -58,64 +130,73 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setSuccess(null);
-
-    const apiUrl =
-      activeTab === "seeker"
-        ? "http://localhost:3000/api/startups/" // Endpoint for service seekers
-        : "http://localhost:3000/api/freelancers/"; // Endpoint for service providers
-
-    const payload = { ...formData };
-
+  
     try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to submit the form");
+      let response;
+  
+      if (activeTab === 'seeker') {
+        // Call Startup API
+        const seekerData = {
+          company_name: formData.name,
+          contact_person: {
+            name: formData.contactName,
+            email: formData.email,
+            phone: formData.phone,
+          },
+          address: {
+            street: formData.address, // Adjust if detailed fields are required
+            city: '', // Fill in city, state, country if available
+            state_province: '',
+            country: '',
+          },
+          business_entity_type: formData.businessStructure,
+          business_structure: [formData.businessStructure], // Example array conversion
+          industry_sector: formData.industrySector,
+          company_stage: formData.businessStage,
+          funding_stage: 'Seed', // Add additional fields as needed
+          about: formData.description,
+          website_url: formData.website,
+          intrested_in_building_team: formData.teamBuildingRequirements.length > 0,
+          team_information: {
+            coreTeamMembers: formData.coreTeamMembers,
+            supportStaff: formData.supportStaff,
+          },
+          interested_services: formData.serviceType,
+          comments: '',
+        };
+  
+        response = await registerStartup(seekerData);
+      } else {
+        // Call Freelancer API
+        const providerData = {
+          name: formData.name,
+          email_address: formData.email,
+          phone_number: formData.phone,
+          address: {
+            street: formData.address, // Adjust if detailed fields are required
+            city: '', // Fill in city, state, country if available
+            state_province: '',
+            country: '',
+          },
+          business_type: formData.businessStructure,
+          services_provided: formData.primaryServiceCategory,
+          website_url: formData.website,
+          other_services_provided: formData.specificServices.join(', '),
+          intrested_in_building_team: formData.teamBuildingRequirements.length > 0,
+        };
+  
+        response = await registerFreelancer(providerData);
       }
-      
-      const result = await response.json();
-      setSuccess("Registration successful!");
-      setFormData({
-        // Reset form data
-        name: "",
-        contactName: "",
-        email: "",
-        phone: "",
-        address: "",
-        website: "",
-        description: "",
-        businessStructure: "",
-        industrySector: "",
-        businessStage: "",
-        businessSize: "",
-        serviceType: [] as string[],
-        timeline: "",
-        designation: "",
-        primaryServiceCategory: "",
-        specificServices: [] as string[],
-        experience: "",
-        serviceArea: "",
-        teamStructure: "",
-        teamSize: "",
-        coreTeamMembers: "",
-        supportStaff: "",
-        teamBuildingRequirements: [] as string[],
-        agreeToTerms: false,
-      });
-    } catch (err: any) {
-      setError(err.message || "An error occurred while submitting the form.");
-    } finally {
-      setLoading(false);
+  
+      // Handle Success
+      console.log('Registration successful:', response.data);
+      alert('Registration successful!');
+      setFormData({ ...initialFormData as any}); // Reset form (create initialFormData as default state)
+    } catch (error) {
+      console.log(error)
+      // Handle Errors
+      // console.error('Error during registration:', error.response?.data || error.message);
+      alert('Registration failed. Please try again.');
     }
   };
 
