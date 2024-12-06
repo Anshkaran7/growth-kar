@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://growthkar.com/sitemap.xml
