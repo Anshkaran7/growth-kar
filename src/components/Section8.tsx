@@ -109,7 +109,42 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           }
         );
         console.log("Service Seeker API Response:", response.data);
-      } else {
+      }else if(activeTab === "job seeker"){ 
+        const postData ={
+          "name": formData.name,
+          "email": formData.email,
+          "phone": formData.phone,
+          "dob": formData.dob,
+          "educationLevel": formData.educationLevel,
+          "institution": formData.institution,
+          "fieldOfStudy": formData.fieldOfStudy,
+          "graduationYear": formData.graduationYear,
+          "employmentType": formData.employmentType,
+          "industry": formData.industry,
+          "jobRoles": formData.jobRoles,
+          "locations": formData.locations,
+          "skills": formData.skills,
+          "experience": formData.experience,
+          // "resume": formData.resume,
+          "linkedin": formData.linkedin,
+          "portfolio": formData.portfolio,
+          "notes":formData.notes
+        }
+        const response = await axios.post(
+          "https://api.growthkar.com/api/form/job",
+          postData
+        );
+        toast('Form Submitted Successfully!',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+      }else {
   
         const postData = {
           company_name: formData.name,
