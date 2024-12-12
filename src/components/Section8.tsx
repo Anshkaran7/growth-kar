@@ -40,6 +40,19 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     supportStaff: "",
     teamBuildingRequirements: [] as string[],
     agreeToTerms: false,
+    institution: "",
+    fieldOfStudy: "",
+    graduationYear: "",
+    dob: "",
+    educationLevel: "",
+    employmentType: "",
+    industry:"",
+    jobRoles:"",
+    locations:"",
+    skills:"",
+    linkedin:"",
+    portfolio:"",
+    notes:"",
   });
 
   const handleInputChange = (
@@ -408,6 +421,164 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     </motion.div>
   );
 
+  const jobSeekerFeilds = (
+    <motion.div
+    className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {/* Basic Information */}
+    <input
+      type="text"
+      name="name"
+      placeholder="Full Name"
+      value={formData.name}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      autoComplete="off"
+      required
+    />
+    <input
+      type="email"
+      name="email"
+      placeholder="Email Address"
+      value={formData.email}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      autoComplete="off"
+      required
+    />
+    <input
+      type="tel"
+      name="phone"
+      placeholder="Phone Number"
+      value={formData.phone}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      autoComplete="off"
+      required
+    />
+    <input
+      type="date"
+      name="dob"
+      placeholder="Date of Birth"
+      value={formData.dob}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      required
+    />
+
+    {/* Educational Details */}
+    <CustomDropdown
+      title="Highest Level of Education"
+      options={["High School", "Diploma", "Bachelor's Degree", "Master's Degree", "Doctorate"]}
+      selectedOption={formData.educationLevel}
+      onSelect={(option) => handleDropdownChange("educationLevel", option)}
+    />
+    <input
+      type="text"
+      name="institution"
+      placeholder="Institution Name"
+      value={formData.institution}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    />
+    <CustomDropdown
+      title="Field of Study"
+      options={["Computer Science", "Engineering", "Business Administration", "Arts", "Medicine", "Other"]}
+      selectedOption={formData.fieldOfStudy}
+      onSelect={(option) => handleDropdownChange("fieldOfStudy", option)}
+      
+    />
+    <input
+      type="text"
+      name="graduationYear"
+      placeholder="Graduation Year"
+      value={formData.graduationYear}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    />
+ 
+    {/* Work Preferences */}
+    <CustomDropdown
+      title="Employment Type"
+      options={["Full-Time", "Part-Time", "Internship", "Freelance/Contract", "Remote"]}
+      selectedOption={formData.employmentType}
+      onSelect={(option) => handleDropdownChange("employmentType", option)}
+    />
+    <CustomDropdown
+      title="Preferred Industry/Sector"
+      options={["Technology", "Healthcare", "Education", "Finance", "Manufacturing", "Media & Entertainment", "Retail & E-commerce", "Energy & Environment", "Non-Profit", "Hospitality & Tourism", "Others"]}
+      selectedOption={formData.industry}
+      onSelect={(option) => handleDropdownChange("industry", option)}
+    />
+    <input
+      type="text"
+      name="jobRoles"
+      placeholder="Preferred Job Roles"
+      value={formData.jobRoles}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    />
+    <input
+      type="text"
+      name="locations"
+      placeholder="Preferred Locations"
+      value={formData.locations}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    />
+
+    {/* Skills & Experience */}
+    <input
+      type="text"
+      name="skills"
+      placeholder="Key Skills"
+      value={formData.skills}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      required
+    />
+    <CustomDropdown
+      title="Years of Experience"
+      options={["Fresher (0-1 years)", "Entry-Level (1-3 years)", "Intermediate (3-5 years)", "Expert (5+ years)"]}
+      selectedOption={formData.experience}
+      onSelect={(option) => handleDropdownChange("experience", option)}
+    />
+    <FileInput
+      name="resume"
+      title="Upload Resume"
+      onChange={(e) => handleInputChange(e)}
+    />
+
+    {/* Additional Information */}
+    <input
+      type="url"
+      name="linkedin"
+      placeholder="LinkedIn Profile"
+      value={formData.linkedin}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    />
+    <input
+      type="url"
+      name="portfolio"
+      placeholder="Portfolio/Personal Website"
+      value={formData.portfolio}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    />
+    <textarea
+      name="notes"
+      placeholder="Additional Notes"
+      value={formData.notes}
+      onChange={handleInputChange}
+      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+    ></textarea>
+  </motion.div>
+  );
   return (
     <section
       id={id}
@@ -424,17 +595,21 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
         >
-          {["seeker", "provider"].map((tab) => (
+          {["seeker", "provider", "job seeker"].map((tab) => (
             <button
               key={tab}
-              className={`px-3 md:px-4 py-2 mx-1 md:mx-2 text-sm md:text-base transition-colors duration-300 ease-in-out ${
-                activeTab === tab
+              className={`px-3 md:px-4 py-2 mx-1 md:mx-2 text-sm md:text-base transition-colors duration-300 ease-in-out ${activeTab === tab
                   ? "border-b-4 border-purple-500 text-purple-500"
                   : "text-gray-400 hover:text-white"
-              }`}
+                }`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab === "seeker" ? "Service Seeker" : "Service Provider"}
+              {tab === "job seeker"
+                ? "Job Seeker"
+                : tab === "seeker"
+                  ? "Service Seeker"
+                  : "Service Provider"}
+
             </button>
           ))}
         </motion.div>
@@ -447,7 +622,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
         >
-          {activeTab === "seeker" ? seekerFields : providerFields}
+          {activeTab === "seeker" ? seekerFields :activeTab ==="job seeker"?jobSeekerFeilds :providerFields}
 
           <motion.div
             className="flex items-center mt-4 md:mt-6"
