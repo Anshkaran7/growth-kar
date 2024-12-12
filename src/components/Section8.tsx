@@ -48,13 +48,13 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
     dob: "",
     educationLevel: "",
     employmentType: "",
-    industry:"",
-    jobRoles:"",
-    locations:"",
-    skills:"",
-    linkedin:"",
-    portfolio:"",
-    notes:"",
+    industry: "",
+    jobRoles: "",
+    locations: "",
+    skills: "",
+    linkedin: "",
+    portfolio: "",
+    notes: "",
   });
 
   const handleInputChange = (
@@ -72,11 +72,13 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(activeTab, formData);
-  
+
     try {
+      let postData;
+      let apiUrl = "";
+
       if (activeTab === "seeker") {
-  
-        const postData = {
+        postData = {
           company_name: formData.name,
           business_stage: formData.businessStage,
           industry_sector: formData.industrySector,
@@ -91,62 +93,30 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           expected_timeline: formData.timeline,
           description: formData.description,
         };
-  
-        console.log(postData);
-  
-        const response = await axios.post(
-          "https://api.growthkar.com/api/form/seeker",
-          postData
-        );
-        toast('Form Submitted Successfully!',
-          {
-            icon: '👏',
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
-        console.log("Service Seeker API Response:", response.data);
-      }else if(activeTab === "job seeker"){ 
-        const postData ={
-          "name": formData.name,
-          "email": formData.email,
-          "phone": formData.phone,
-          "dob": formData.dob,
-          "educationLevel": formData.educationLevel,
-          "institution": formData.institution,
-          "fieldOfStudy": formData.fieldOfStudy,
-          "graduationYear": formData.graduationYear,
-          "employmentType": formData.employmentType,
-          "industry": formData.industry,
-          "jobRoles": formData.jobRoles,
-          "locations": formData.locations,
-          "skills": formData.skills,
-          "experience": formData.experience,
-          // "resume": formData.resume,
-          "linkedin": formData.linkedin,
-          "portfolio": formData.portfolio,
-          "notes":formData.notes
-        }
-        const response = await axios.post(
-          "https://api.growthkar.com/api/form/job",
-          postData
-        );
-        toast('Form Submitted Successfully!',
-          {
-            icon: '👏',
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
-      }else {
-  
-        const postData = {
+        apiUrl = "https://api.growthkar.com/api/form/seeker";
+      } else if (activeTab === "job seeker") {
+        postData = {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          dob: formData.dob,
+          educationLevel: formData.educationLevel,
+          institution: formData.institution,
+          fieldOfStudy: formData.fieldOfStudy,
+          graduationYear: formData.graduationYear,
+          employmentType: formData.employmentType,
+          industry: formData.industry,
+          jobRoles: formData.jobRoles,
+          locations: formData.locations,
+          skills: formData.skills,
+          experience: formData.experience,
+          linkedin: formData.linkedin,
+          portfolio: formData.portfolio,
+          notes: formData.notes,
+        };
+        apiUrl = "https://api.growthkar.com/api/form/job";
+      } else {
+        postData = {
           company_name: formData.name,
           business_structure: formData.businessStructure,
           primary_contact_name: formData.contactName,
@@ -164,31 +134,46 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           core_team_members: formData.coreTeamMembers,
           support_staff: formData.supportStaff,
           team_building_requirements: formData.teamBuildingRequirements,
-          // Uncomment this if portfolio data is available
-          portfolio: "formData.portfolio",
+          portfolio: formData.portfolio,
         };
-  
-        // console.log(postData);
-  
-        const response = await axios.post(
-          "https://api.growthkar.com/api/form/provider",
-          postData
-        );
-        toast('Form Submitted Successfully!',
-          {
-            icon: '👏',
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
-        console.log("Service Provider API Response:", response.data);
+        apiUrl = "https://api.growthkar.com/api/form/provider";
       }
+      const formattedData = `\`\`\`json\n${JSON.stringify(postData, null, 2)}\n\`\`\``;
+      // Send a message to Telegram
+      const telegramBotToken = "7931702710:AAHfBguz-AwVYvhWAAKAfYQnDVayjTVHASw";
+      const chatId = "-1002274904048";
+      const message = `*Form Submission Received*\n\n${formattedData}`;
+
+
+      await axios.post(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+        chat_id: chatId,
+        text: message,
+        parse_mode: "MarkdownV2", // Use MarkdownV2 for code blocks
+      });
+
+
+      await axios.post(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+        chat_id: chatId,
+        text: message,
+      });
+
+      const response = await axios.post(apiUrl, postData);
+      console.log("API Response:", response.data);
+
+
+      toast('Form Submitted Successfully!',
+        {
+          icon: '👏',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
     } catch (error) {
       console.error("Error submitting the form:", error);
-  
+
       if (axios.isAxiosError(error)) {
         console.error("Axios error response:", error.response?.data);
       } else {
@@ -196,7 +181,8 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
       }
     }
   };
-  
+
+
   const numberInputStyle = `
   input-field w-full p-3 md:p-4 text-sm md:text-base
   [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
@@ -549,161 +535,161 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
 
   const jobSeekerFeilds = (
     <motion.div
-    className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {/* Basic Information */}
-    <input
-      type="text"
-      name="name"
-      placeholder="Full Name"
-      value={formData.name}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-      autoComplete="off"
-      required
-    />
-    <input
-      type="email"
-      name="email"
-      placeholder="Email Address"
-      value={formData.email}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-      autoComplete="off"
-      required
-    />
-    <input
-      type="tel"
-      name="phone"
-      placeholder="Phone Number"
-      value={formData.phone}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-      autoComplete="off"
-      required
-    />
-    <input
-      type="date"
-      name="dob"
-      placeholder="Date of Birth"
-      value={formData.dob}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-      required
-    />
+      className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Basic Information */}
+      <input
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        value={formData.name}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        value={formData.email}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
+        required
+      />
+      <input
+        type="tel"
+        name="phone"
+        placeholder="Phone Number"
+        value={formData.phone}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        autoComplete="off"
+        required
+      />
+      <input
+        type="date"
+        name="dob"
+        placeholder="Date of Birth"
+        value={formData.dob}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        required
+      />
 
-    {/* Educational Details */}
-    <CustomDropdown
-      title="Highest Level of Education"
-      options={["High School", "Diploma", "Bachelor's Degree", "Master's Degree", "Doctorate"]}
-      selectedOption={formData.educationLevel}
-      onSelect={(option) => handleDropdownChange("educationLevel", option)}
-    />
-    <input
-      type="text"
-      name="institution"
-      placeholder="Institution Name"
-      value={formData.institution}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    />
-    <CustomDropdown
-      title="Field of Study"
-      options={["Computer Science", "Engineering", "Business Administration", "Arts", "Medicine", "Other"]}
-      selectedOption={formData.fieldOfStudy}
-      onSelect={(option) => handleDropdownChange("fieldOfStudy", option)}
-      
-    />
-    <input
-      type="text"
-      name="graduationYear"
-      placeholder="Graduation Year"
-      value={formData.graduationYear}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    />
- 
-    {/* Work Preferences */}
-    <CustomDropdown
-      title="Employment Type"
-      options={["Full-Time", "Part-Time", "Internship", "Freelance/Contract", "Remote"]}
-      selectedOption={formData.employmentType}
-      onSelect={(option) => handleDropdownChange("employmentType", option)}
-    />
-    <CustomDropdown
-      title="Preferred Industry/Sector"
-      options={["Technology", "Healthcare", "Education", "Finance", "Manufacturing", "Media & Entertainment", "Retail & E-commerce", "Energy & Environment", "Non-Profit", "Hospitality & Tourism", "Others"]}
-      selectedOption={formData.industry}
-      onSelect={(option) => handleDropdownChange("industry", option)}
-    />
-    <input
-      type="text"
-      name="jobRoles"
-      placeholder="Preferred Job Roles"
-      value={formData.jobRoles}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    />
-    <input
-      type="text"
-      name="locations"
-      placeholder="Preferred Locations"
-      value={formData.locations}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    />
+      {/* Educational Details */}
+      <CustomDropdown
+        title="Highest Level of Education"
+        options={["High School", "Diploma", "Bachelor's Degree", "Master's Degree", "Doctorate"]}
+        selectedOption={formData.educationLevel}
+        onSelect={(option) => handleDropdownChange("educationLevel", option)}
+      />
+      <input
+        type="text"
+        name="institution"
+        placeholder="Institution Name"
+        value={formData.institution}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <CustomDropdown
+        title="Field of Study"
+        options={["Computer Science", "Engineering", "Business Administration", "Arts", "Medicine", "Other"]}
+        selectedOption={formData.fieldOfStudy}
+        onSelect={(option) => handleDropdownChange("fieldOfStudy", option)}
 
-    {/* Skills & Experience */}
-    <input
-      type="text"
-      name="skills"
-      placeholder="Key Skills"
-      value={formData.skills}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-      required
-    />
-    <CustomDropdown
-      title="Years of Experience"
-      options={["Fresher (0-1 years)", "Entry-Level (1-3 years)", "Intermediate (3-5 years)", "Expert (5+ years)"]}
-      selectedOption={formData.experience}
-      onSelect={(option) => handleDropdownChange("experience", option)}
-    />
-    <FileInput
-      name="resume"
-      title="Upload Resume"
-      onChange={(e) => handleInputChange(e)}
-    />
+      />
+      <input
+        type="text"
+        name="graduationYear"
+        placeholder="Graduation Year"
+        value={formData.graduationYear}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
 
-    {/* Additional Information */}
-    <input
-      type="url"
-      name="linkedin"
-      placeholder="LinkedIn Profile"
-      value={formData.linkedin}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    />
-    <input
-      type="url"
-      name="portfolio"
-      placeholder="Portfolio/Personal Website"
-      value={formData.portfolio}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    />
-    <textarea
-      name="notes"
-      placeholder="Additional Notes"
-      value={formData.notes}
-      onChange={handleInputChange}
-      className="input-field w-full p-3 md:p-4 text-sm md:text-base"
-    ></textarea>
-  </motion.div>
+      {/* Work Preferences */}
+      <CustomDropdown
+        title="Employment Type"
+        options={["Full-Time", "Part-Time", "Internship", "Freelance/Contract", "Remote"]}
+        selectedOption={formData.employmentType}
+        onSelect={(option) => handleDropdownChange("employmentType", option)}
+      />
+      <CustomDropdown
+        title="Preferred Industry/Sector"
+        options={["Technology", "Healthcare", "Education", "Finance", "Manufacturing", "Media & Entertainment", "Retail & E-commerce", "Energy & Environment", "Non-Profit", "Hospitality & Tourism", "Others"]}
+        selectedOption={formData.industry}
+        onSelect={(option) => handleDropdownChange("industry", option)}
+      />
+      <input
+        type="text"
+        name="jobRoles"
+        placeholder="Preferred Job Roles"
+        value={formData.jobRoles}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="text"
+        name="locations"
+        placeholder="Preferred Locations"
+        value={formData.locations}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+
+      {/* Skills & Experience */}
+      <input
+        type="text"
+        name="skills"
+        placeholder="Key Skills"
+        value={formData.skills}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+        required
+      />
+      <CustomDropdown
+        title="Years of Experience"
+        options={["Fresher (0-1 years)", "Entry-Level (1-3 years)", "Intermediate (3-5 years)", "Expert (5+ years)"]}
+        selectedOption={formData.experience}
+        onSelect={(option) => handleDropdownChange("experience", option)}
+      />
+      <FileInput
+        name="resume"
+        title="Upload Resume"
+        onChange={(e) => handleInputChange(e)}
+      />
+
+      {/* Additional Information */}
+      <input
+        type="url"
+        name="linkedin"
+        placeholder="LinkedIn Profile"
+        value={formData.linkedin}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <input
+        type="url"
+        name="portfolio"
+        placeholder="Portfolio/Personal Website"
+        value={formData.portfolio}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      />
+      <textarea
+        name="notes"
+        placeholder="Additional Notes"
+        value={formData.notes}
+        onChange={handleInputChange}
+        className="input-field w-full p-3 md:p-4 text-sm md:text-base"
+      ></textarea>
+    </motion.div>
   );
   return (
     <section
@@ -725,8 +711,8 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
             <button
               key={tab}
               className={`px-3 md:px-4 py-2 mx-1 md:mx-2 text-sm md:text-base transition-colors duration-300 ease-in-out ${activeTab === tab
-                  ? "border-b-4 border-purple-500 text-purple-500"
-                  : "text-gray-400 hover:text-white"
+                ? "border-b-4 border-purple-500 text-purple-500"
+                : "text-gray-400 hover:text-white"
                 }`}
               onClick={() => setActiveTab(tab)}
             >
@@ -748,7 +734,7 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
         >
-          {activeTab === "seeker" ? seekerFields :activeTab ==="job seeker"?jobSeekerFeilds :providerFields}
+          {activeTab === "seeker" ? seekerFields : activeTab === "job seeker" ? jobSeekerFeilds : providerFields}
 
           <motion.div
             className="flex items-center mt-4 md:mt-6"
