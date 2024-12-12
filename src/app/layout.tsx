@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import  { Toaster } from 'react-hot-toast';
 
 // Load custom fonts
 const geistSans = localFont({
@@ -76,8 +77,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body
+      
         className={`${geistSans.variable} ${geistMono.variable} ${roslindaleVariable.variable} antialiased`}
       >
+         <Toaster />
         {children}
       </body>
     </html>
