@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import CustomDropdown from "./CustomDropdown";
 import "tailwindcss/tailwind.css";
 import FileInput from "./FileInput";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface Section8Props {
   id?: string;
@@ -65,12 +67,101 @@ const Section8: React.FC<Section8Props> = ({ id }) => {
   const handleDropdownChange = (field: string, value: string | string[]) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
+  // import axios from 'axios';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
+    console.log(activeTab, formData);
+  
+    try {
+      if (activeTab === "seeker") {
+  
+        const postData = {
+          company_name: formData.name,
+          business_stage: formData.businessStage,
+          industry_sector: formData.industrySector,
+          business_structure: formData.businessStructure,
+          business_size: formData.businessSize,
+          website: formData.website,
+          primary_contact_name: formData.contactName,
+          primary_contact_email: formData.email,
+          primary_contact_phone: formData.phone,
+          location: formData.address,
+          type_of_service_needed: formData.serviceType,
+          expected_timeline: formData.timeline,
+          description: formData.description,
+        };
+  
+        console.log(postData);
+  
+        const response = await axios.post(
+          "https://api.growthkar.com/api/form/seeker",
+          postData
+        );
+        toast('Form Submitted Successfully!',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+        console.log("Service Seeker API Response:", response.data);
+      } else {
+  
+        const postData = {
+          company_name: formData.name,
+          business_structure: formData.businessStructure,
+          primary_contact_name: formData.contactName,
+          designation: formData.designation,
+          primary_contact_email: formData.email,
+          primary_contact_phone: formData.phone,
+          location: formData.address,
+          website: formData.website,
+          primary_service: formData.primaryServiceCategory,
+          specific_services: formData.specificServices,
+          experience: formData.experience,
+          service_area: formData.serviceArea,
+          current_team_structure: formData.teamStructure,
+          team_size: formData.teamSize,
+          core_team_members: formData.coreTeamMembers,
+          support_staff: formData.supportStaff,
+          team_building_requirements: formData.teamBuildingRequirements,
+          // Uncomment this if portfolio data is available
+          portfolio: "formData.portfolio",
+        };
+  
+        // console.log(postData);
+  
+        const response = await axios.post(
+          "https://api.growthkar.com/api/form/provider",
+          postData
+        );
+        toast('Form Submitted Successfully!',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+        console.log("Service Provider API Response:", response.data);
+      }
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+  
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error response:", error.response?.data);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
-
+  
   const numberInputStyle = `
   input-field w-full p-3 md:p-4 text-sm md:text-base
   [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none

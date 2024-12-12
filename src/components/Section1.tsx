@@ -148,7 +148,7 @@ function Section1({ style }: Section1Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5, delay: 2.0 }}
-            className="px-4 py-2 sm:px-6 sm:py-3 bg-gray-800 rounded-full text-lg hover:bg-gray-700 transition duration-300"
+            className="px-4 py-2 sm:px-6 sm:py-3 bg-purple-500 rounded-full text-lg hover:bg-gray-700 transition duration-300"
             onClick={handleJoinUsClick}
           >
             Join Us

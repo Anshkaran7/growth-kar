@@ -12,6 +12,7 @@ import Section6 from "@/components/Section6";
 import Section7 from "@/components/Section7";
 import Section8 from "@/components/Section8";
 import Section9 from "@/components/Section9";
+import Image from "next/image";
 
 export default function Home() {
   const controls = useAnimation(); // Framer Motion controls for animations
@@ -61,7 +62,78 @@ export default function Home() {
 
       {/* Sticky Navbar */}
       
+      <header className="w-full fixed top-0 left-0 right-0 z-50">
+        {/* Beta Message with Toggle */}
+        {/* <div
+          className={`sticky top-0 z-10 bg-yellow-500 text-black h-8 px-3 flex justify-center items-center space-x-2 transition-all duration-300 ${
+            isMessageVisible ? "h-12" : "h-8"
+          }`}
+        >
+          <motion.p
+            className="font-medium text-sm leading-none"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            🚀 Product is in Beta Stage. Your Feedback is Appreciated!
+          </motion.p>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleMessage}
+            aria-expanded={isMessageVisible}
+            aria-controls="feedback-message"
+            className="p-0.5 transition-transform duration-300"
+          >
+            {isMessageVisible ? (
+              <ChevronUpIcon className="h-3 w-3" />
+            ) : (
+              <ChevronDownIcon className="h-3 w-3" />
+            )}
+            <span className="sr-only">
+              {isMessageVisible
+                ? "Hide feedback message"
+                : "Show feedback message"}
+            </span>
+          </Button>
+        </div> */}
 
+        {/* Feedback Message (Animated) */}
+        {/* <div
+          id="feedback-message"
+          className={`transition-all duration-300 text-xs text-center bg-yellow-100 text-black ${
+            isMessageVisible
+              ? "max-h-20 opacity-100 py-2"
+              : "max-h-0 opacity-0 py-0"
+          } overflow-hidden`}
+          role="alert"
+        >
+          If you encounter any bugs or glitches, please send us a screenshot at{" "}
+          <a
+            href="mailto:feedback@mail.growthkar.com"
+            className="text-blue-500 hover:underline"
+          >
+            feedback@mail.growthkar.com
+          </a>
+        </div> */}
+
+        {/* Logo and Branding Section */}
+        <div className="w-full flex justify-center items-center p-4 sm:p-6 bg-black/70 backdrop-blur-md transition-all duration-300">
+          <div className="flex items-center gap-x-1">
+            <Image
+              src="/logo.png"
+              alt="GrowthKAR"
+              width={1000}
+              height={1000}
+              className="w-5 h-5 sm:w-8 sm:h-8 transition-transform duration-300 hover:scale-110"
+            />
+            <span className="text-white font-semibold text-sm sm:text-lg">
+              GrowthKAR
+            </span>
+          </div>
+        </div>
+      </header>
       {/* Floating Banner */}
       {/* <motion.div
         className="fixed bottom-8 right-8 z-50 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-lg flex items-center justify-center cursor-pointer"
@@ -85,6 +157,7 @@ export default function Home() {
       <Section6 style="h-screen snap-start" />
       <Section7 style="h-screen snap-start" />
       <Section8 id="join-us" />
+     
     </div>
   );
 }
